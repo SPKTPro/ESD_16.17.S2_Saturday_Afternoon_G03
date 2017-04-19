@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ffffff">
+    <ImageButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/home3"
+        android:layout_margin="15dp"
+        android:id="@+id/home" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Pronounce words below"
+        android:layout_below="@+id/home"
+        android:layout_alignStart="@+id/home" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/word1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="TextView"
+        android:textSize="35dp"
+        android:textColor="#009966"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/word2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="36dp"
+        android:textColor="#339966"
+        android:textSize="18dp"
+        android:layout_below="@+id/word1"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/btnspeaker"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="47dp"
+        android:background="@drawable/speaker3"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/word2" />
+    <ImageButton
+        android:id="@+id/btnrecord"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@drawable/record2"
+        android:layout_alignBottom="@+id/btnspeaker"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/btnprevious"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/left"
+        android:layout_alignBottom="@+id/btnrecord"
+        android:layout_alignStart="@+id/textView2" />
+
+    <ImageButton
+        android:id="@+id/btnnext"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/right"
+        android:layout_marginEnd="14dp"
+        android:layout_alignTop="@+id/btnspeaker"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/result"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:srcCompat="@drawable/true2"
+        android:layout_below="@+id/word2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp" />
+
+</RelativeLayout>
