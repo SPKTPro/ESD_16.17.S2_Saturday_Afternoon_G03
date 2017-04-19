@@ -17,7 +17,13 @@ public class MainActivity extends AppCompatActivity {
         couple1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+couple1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TabActivity.class);
+                startActivity(intent);
+            }
+        });
             }
         });
     }
