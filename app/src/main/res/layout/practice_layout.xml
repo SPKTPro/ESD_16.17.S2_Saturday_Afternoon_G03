@@ -9,6 +9,17 @@
         android:background="@drawable/home3"
         android:layout_margin="15dp"
         android:id="@+id/home" />
+    <ImageButton
+        android:id="@+id/btnmenu"
+        android:layout_width="42dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/menu2"
+        android:layout_alignTop="@+id/imageButton"
+        android:layout_alignParentEnd="true" />
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"

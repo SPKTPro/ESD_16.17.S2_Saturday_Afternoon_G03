@@ -1,23 +1,23 @@
 package com.example.rinnv.esd_g03;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
+import com.example.rinnv.esd_g03.Fragment.TheoryFragment;
+import com.example.rinnv.esd_g03.Fragment.WordFragment;
+
+import java.util.HashMap;
+
+import static com.example.rinnv.esd_g03.R.id.container;
 
 public class TabActivity extends AppCompatActivity {
 
@@ -30,6 +30,8 @@ public class TabActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private String TAG ="Tag";
+    public static int Choice =0;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -41,7 +43,7 @@ public class TabActivity extends AppCompatActivity {
     //Layout
     public static int[] resourceIds = {
             R.layout.theory_layout
-            ,R.layout.practice_layout
+            , R.layout.practice_layout
     };
 
     @Override
@@ -51,77 +53,74 @@ public class TabActivity extends AppCompatActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager = (ViewPager) findViewById(container);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                /*
+                final Fragment fragment = ((SectionsPagerAdapter) mViewPager.getAdapter()).getFragment(position);
+                if (position==1 && fragment!=null)
+                    new AlertDialog.Builder(TabActivity.this)
+                            .setTitle("asdddddddddddddddddddddddddd")
+                            .setMessage("ddddddddddddddddddddddddddd?")
+                            .setPositiveButton("Word", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Choice=1;
+                                    fragment.onResume();
+                                }
+                            })
+                            .setNegativeButton("Sentence", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Choice=2;
+                                    fragment.onResume();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();*/
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
-
-
     }
-
-
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-          /*  View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));*/
-            int index = getArguments().getInt(ARG_SECTION_NUMBER);
-            View rootView = inflater.inflate(resourceIds[index], container, false);
-
-            return rootView;
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private HashMap<Integer, String> mFragmentTags;
+        private FragmentManager fragmentManager;
+        private Context context;
+
+        public SectionsPagerAdapter(FragmentManager fm,Context context) {
             super(fm);
+            fragmentManager=fm;
+            mFragmentTags = new HashMap<Integer, String>();
+            this.context =context;
         }
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //   return PlaceholderFragment.newInstance(position + 1);
-            return PlaceholderFragment.newInstance(position);
+
+            switch (position) {
+                case 0:
+                    return new TheoryFragment().createFragment();
+                case 1:
+                    return new WordFragment().createFragment();
+                default:
+                    return new TheoryFragment().createFragment();
+            }
         }
 
         @Override
@@ -132,20 +131,30 @@ public class TabActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-          /*  switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;*/
-
-
 
             return tabs[position];
 
         }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Object obj = super.instantiateItem(container, position);
+            if (obj instanceof Fragment) {
+                // record the fragment tag here.
+                Fragment f = (Fragment) obj;
+                String tag = f.getTag();
+                mFragmentTags.put(position, tag);
+            }
+            return obj;
+        }
+
+        public Fragment getFragment(int position) {
+            String tag = mFragmentTags.get(position);
+            if (tag == null)
+                return null;
+            return fragmentManager.findFragmentByTag(tag);
+        }
     }
+
+
 }
