@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.rinnv.esd_g03.R;
-import com.example.rinnv.esd_g03.TabActivity;
 
 /**
  * Created by rinnv on 4/20/2017.

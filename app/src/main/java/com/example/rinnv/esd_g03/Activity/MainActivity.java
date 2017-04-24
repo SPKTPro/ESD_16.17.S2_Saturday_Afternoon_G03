@@ -1,4 +1,4 @@
-package com.example.rinnv.esd_g03;
+package com.example.rinnv.esd_g03.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.rinnv.esd_g03.Models.Example;
+import com.example.rinnv.esd_g03.R;
+import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
 import java.io.IOException;
 import java.util.ArrayList;

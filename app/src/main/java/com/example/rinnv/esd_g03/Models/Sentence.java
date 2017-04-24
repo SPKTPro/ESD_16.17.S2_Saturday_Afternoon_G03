@@ -1,4 +1,4 @@
-package com.example.rinnv.esd_g03;
+package com.example.rinnv.esd_g03.Models;
 
 /**
  * Created by thaihuynh on 4/24/2017.
