@@ -13,7 +13,7 @@ public class Phonetic {
     private String Id_Pronounce;
     private String Link;
 
-    public Phonetic(int group, int id_Phonetic, String phonetic, String id_Example, String id_Pronounce, String link) {
+    public Phonetic(int group, String phonetic, String id_Example, String id_Pronounce, String link, int id_Phonetic) {
         this.Group = group;
         this.Id_Phonetic = id_Phonetic;
         this.Phonetic = phonetic;

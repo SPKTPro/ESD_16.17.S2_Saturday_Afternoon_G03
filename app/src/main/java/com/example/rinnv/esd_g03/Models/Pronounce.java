@@ -4,12 +4,12 @@ package com.example.rinnv.esd_g03.Models;
  * Created by thaihuynh on 4/24/2017.
  */
 
-public class Pronuounce {
+public class Pronounce {
     //data
     private String Id_Pronounce;
     private String Pronounce;
     //contructor
-    public Pronuounce(String id_Pronounce, String pronounce) {
+    public Pronounce(String id_Pronounce, String pronounce) {
         this.Id_Pronounce = id_Pronounce;
         this.Pronounce = pronounce;
     }
