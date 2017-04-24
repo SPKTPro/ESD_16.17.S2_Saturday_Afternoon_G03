@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.rinnv.esd_g03.Models.Example;
-import com.example.rinnv.esd_g03.Models.Phonetic;
 import com.example.rinnv.esd_g03.Models.Pronounce;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
@@ -52,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d(TAG, "onClick: " + pronounce.getPronounce());
                 }
+
+
             }
         });
 
