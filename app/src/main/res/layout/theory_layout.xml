@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff">
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="45dp"
@@ -49,6 +50,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_pho1Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -59,6 +61,7 @@
                         android:textColor="#009966"/>
 
                     <TextView
+                        android:id="@+id/tv_pho1Guide1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -66,6 +69,7 @@
                         android:textSize="16dp" />
 
                     <TextView
+                        android:id="@+id/tv_pho1Guide2"
                         android:layout_width="match_parent"
                         android:layout_height="39dp"
                         android:layout_marginBottom="10dp"
@@ -74,6 +78,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_pho1Guide3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -95,6 +100,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_pho2Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -105,6 +111,7 @@
                         android:textColor="#009966"/>
 
                     <TextView
+                        android:id="@+id/tv_pho2Guide1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -113,7 +120,7 @@
                         android:textSize="16dp" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/tv_pho2Guide2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -122,6 +129,7 @@
                         android:textSize="16dp" />
 
                     <TextView
+                        android:id="@+id/tv_pho2Guide3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -166,7 +174,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/tv_pho1TitleEx"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -185,6 +193,7 @@
                         android:weightSum="4">
 
                         <TextView
+                            android:id="@+id/tv_pho1Ex1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -212,6 +221,7 @@
                         android:weightSum="4">
 
                         <TextView
+                            android:id="@+id/tv_pho1Ex2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -238,6 +248,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_pho2TitleEx"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -256,6 +267,7 @@
                         android:weightSum="4">
 
                         <TextView
+                            android:id="@+id/tv_pho2Ex1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -283,6 +295,7 @@
                         android:weightSum="4">
 
                         <TextView
+                            android:id="@+id/tv_pho2Ex2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
