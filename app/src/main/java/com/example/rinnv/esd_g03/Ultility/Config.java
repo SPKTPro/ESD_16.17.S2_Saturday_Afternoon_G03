@@ -9,4 +9,7 @@ public final class Config {
     }
 
     public static final String YOUTUBE_API_KEY = "AIzaSyCG25IwSEZcJuF5Te7kko9XawkHaEJ48Ws";
+    public static final String PHEONIC_GROUP_KEYWORD = "PheonicGrId";
+    public static String PHEONIC_GROUP_ID;
+
 }

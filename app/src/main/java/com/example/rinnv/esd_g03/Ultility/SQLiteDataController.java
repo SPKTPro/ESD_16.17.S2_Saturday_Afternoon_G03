@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+
 /**
  * Created by thaihuynh on 4/24/2017.
  */
@@ -118,6 +119,7 @@ public class SQLiteDataController extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //do nothing
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //do nothing
@@ -125,45 +127,65 @@ public class SQLiteDataController extends SQLiteOpenHelper {
 
     // Cac method get data
 
-    public ArrayList<Example> getListExample()
-    {
+    public ArrayList<Example> getListExample() {
         ArrayList<Example> list = new ArrayList<>();
         try {
             openDataBase();
             Cursor cs = database.rawQuery("select * from Example", null);
-            Log.d("Tag", "getListExample: "+cs.getCount());
+            Log.d("Tag", "getListExample: " + cs.getCount());
             Example example;
             while (cs.moveToNext()) {
-                example = new Example(cs.getString(0),cs.getString(1),cs.getString(2));
+                example = new Example(cs.getString(0), cs.getString(1), cs.getString(2));
                 list.add(example);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
         return list;
     }
 
-    public  ArrayList<Phonetic> getListPhonetic() {
+    public ArrayList<Phonetic> getListPhonetic(String phoneticGrId) {
         ArrayList<Phonetic> list = new ArrayList<>();
         try {
             openDataBase();
-            Cursor cs = database.rawQuery("select * from PHONETIC", null);
+            String query = "select * from PHONETIC where Pho_Group = " + '"' + phoneticGrId + '"';
+            Cursor cs = database.rawQuery(query, null);
+            Log.d("Tag", "getListPhonetic: " + query);
+            Log.d("Tag", "getListPhonetic: " + cs.getCount());
+
             Phonetic phonetic;
-            while (cs.moveToNext()){
+            while (cs.moveToNext()) {
                 phonetic = new Phonetic(Integer.parseInt(cs.getString(0)), cs.getString(1),
                         cs.getString(2), cs.getString(3), cs.getString(4), Integer.parseInt(cs.getString(5)));
                 list.add(phonetic);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return  list;
+        return list;
+    }
+
+    public ArrayList<Pronounce> getProunceByPhonetic(String phonetic) {
+        ArrayList<Pronounce> list = new ArrayList<>();
+        try {
+            openDataBase();
+            Cursor cs = database.rawQuery("select * from PRONOUNCE where Id_Pronounce =  "+'"'+phonetic+'"', null);
+            Pronounce pronounce;
+            while (cs.moveToNext()) {
+                pronounce = new Pronounce(cs.getString(0), cs.getString(1));
+                list.add(pronounce);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return list;
+
     }
 
     public ArrayList<Pronounce> getListPronounce() {
@@ -172,17 +194,16 @@ public class SQLiteDataController extends SQLiteOpenHelper {
             openDataBase();
             Cursor cs = database.rawQuery("select * from PRONOUNCE", null);
             Pronounce pronounce;
-            while (cs.moveToNext()){
+            while (cs.moveToNext()) {
                 pronounce = new Pronounce(cs.getString(0), cs.getString(1));
                 list.add(pronounce);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return  list;
+        return list;
     }
 
     public ArrayList<Sentence> getListSentence() {
@@ -191,18 +212,17 @@ public class SQLiteDataController extends SQLiteOpenHelper {
             openDataBase();
             Cursor cs = database.rawQuery("select * from SENTENCE", null);
             Sentence sentence;
-            while (cs.moveToNext()){
+            while (cs.moveToNext()) {
                 sentence = new Sentence(cs.getString(0), cs.getString(1),
                         Integer.parseInt(cs.getString(2)), cs.getString(3), cs.getString(4));
                 list.add(sentence);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return  list;
+        return list;
     }
 
     public ArrayList<Word> getListWord() {
@@ -211,17 +231,16 @@ public class SQLiteDataController extends SQLiteOpenHelper {
             openDataBase();
             Cursor cs = database.rawQuery("select * from WORD", null);
             Word word;
-            while (cs.moveToNext()){
+            while (cs.moveToNext()) {
                 word = new Word(cs.getString(0), cs.getString(1),
                         Integer.parseInt(cs.getString(2)), cs.getString(3));
                 list.add(word);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             close();
         }
-        return  list;
+        return list;
     }
 }

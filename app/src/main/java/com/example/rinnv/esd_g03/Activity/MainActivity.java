@@ -6,11 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.rinnv.esd_g03.Models.Pronounce;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
+import com.example.rinnv.esd_g03.Ultility.Config;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
 import java.io.IOException;
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TabActivity.class);
+                Config.PHEONIC_GROUP_ID ="1";
                 startActivity(intent);
             }
         });
