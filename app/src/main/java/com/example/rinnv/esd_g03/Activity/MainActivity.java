@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.rinnv.esd_g03.Models.Pronounce;
+import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
@@ -38,17 +40,17 @@ public class MainActivity extends AppCompatActivity {
         couple2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Pronounce> wordArrayList = db.getListPronounce();
+                ArrayList<Word> wordArrayList = db.getListWord();
                 // co khi no ko lay dc phan tu nao nen no ko in
                 // ok
                 Log.d(TAG, "onClick: So luong example dc tim thay "+wordArrayList.size());
-                for (Pronounce pronounce : wordArrayList) {
+                for (Word word : wordArrayList) {
                     // ghi ra file log vs tag la onClick, neu muon xem lai gia tri log thi vao tab
                     // android monitor nhap tag
                     // binh thuong ma
                     //luc nay khong chay
 
-                    Log.d(TAG, "onClick: " + pronounce.getPronounce());
+                    Log.d(TAG, "onClick: " + word.getWord());
                 }
 
 
