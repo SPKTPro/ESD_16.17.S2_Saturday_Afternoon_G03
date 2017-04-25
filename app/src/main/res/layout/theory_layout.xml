@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,9 +23,9 @@
                 android:layout_marginTop="20dp"
                 android:text="HOW TO PRONOUNCE?"
                 android:textAlignment="center"
-                android:textSize="25dp"
                 android:textColor="#009966"
-                android:textStyle="bold"/>
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,34 +48,17 @@
                         android:layout_marginBottom="15dp"
                         android:text="/I/"
                         android:textAlignment="center"
+                        android:textColor="#009966"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#009966"/>
+                        android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_pho1Guide1"
+                    <com.example.rinnv.esd_g03.Ultility.ExpandableHeightListView
+                        android:id="@+id/list_pho1Guide"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="Phát âm như 'o'"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/tv_pho1Guide2"
-                        android:layout_width="match_parent"
-                        android:layout_height="39dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="cổ họng rung"
-                        android:textSize="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_pho1Guide3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="abcxyz abcxyz abcxyz abcxyz "
-                        android:textSize="16dp" />
+                        android:fadingEdge="none"
+                        android:focusable="false"
+                        android:scrollbars="none" />
 
                     <ImageButton
                         android:layout_width="match_parent"
@@ -97,36 +81,17 @@
                         android:layout_marginBottom="15dp"
                         android:text="/i:/"
                         android:textAlignment="center"
+                        android:textColor="#009966"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#009966"/>
+                        android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_pho2Guide1"
+                    <com.example.rinnv.esd_g03.Ultility.ExpandableHeightListView
+                        android:id="@+id/list_pho2Guide"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="Phát âm như 'a'"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/tv_pho2Guide2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="cổ họng không rung"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/tv_pho2Guide3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="abcxyz abcxyz abcxyz abcxyz "
-                        android:textSize="16dp" />
+                        android:fadingEdge="none"
+                        android:focusable="false"
+                        android:scrollbars="none" />
 
                     <ImageButton
                         android:layout_width="match_parent"
@@ -145,9 +110,9 @@
                 android:layout_marginTop="20dp"
                 android:text="EXAMPLE"
                 android:textAlignment="center"
-                android:textSize="30dp"
                 android:textColor="#009966"
-                android:textStyle="bold"/>
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -171,65 +136,14 @@
                         android:layout_marginBottom="15dp"
                         android:text="/I/"
                         android:textAlignment="center"
+                        android:textColor="#009966"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#009966"/>
+                        android:textStyle="bold" />
 
-                    <LinearLayout
+                    <com.example.rinnv.esd_g03.Ultility.ExpandableHeightListView
+                        android:id="@+id/listView_phonetic1_Example"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:weightSum="4">
-
-                        <TextView
-                            android:id="@+id/tv_pho1Ex1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="see"
-                            android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="#000000"
-                            android:textStyle="bold"/>
-
-                        <ImageButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:background="#ffffff"
-                            android:paddingRight="20dp"
-                            android:src="@drawable/speaker" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:weightSum="4">
-
-                        <TextView
-                            android:id="@+id/tv_pho1Ex2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="see"
-                            android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="#000000"
-                            android:textStyle="bold"/>
-
-                        <ImageButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:background="#ffffff"
-                            android:paddingRight="20dp"
-                            android:src="@drawable/speaker" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -245,72 +159,21 @@
                         android:layout_marginBottom="15dp"
                         android:text="/i:/"
                         android:textAlignment="center"
+                        android:textColor="#009966"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#009966"/>
+                        android:textStyle="bold" />
 
-                    <LinearLayout
+                    <com.example.rinnv.esd_g03.Ultility.ExpandableHeightListView
+                        android:id="@+id/listView_phonetic2_Example"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:weightSum="4">
+                        android:layout_height="wrap_content" />
 
-                        <TextView
-                            android:id="@+id/tv_pho2Ex1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="see"
-                            android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="#000000"
-                            android:textStyle="bold" />
-
-                        <ImageButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:background="#ffffff"
-                            android:paddingRight="20dp"
-                            android:src="@drawable/speaker" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:weightSum="4">
-
-                        <TextView
-                            android:id="@+id/tv_pho2Ex2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:text="see"
-                            android:textAlignment="center"
-                            android:textSize="20sp"
-                            android:textColor="#000000"
-                            android:textStyle="bold"/>
-
-                        <ImageButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:background="#ffffff"
-                            android:paddingRight="20dp"
-                            android:src="@drawable/speaker" />
-                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </LinearLayout>

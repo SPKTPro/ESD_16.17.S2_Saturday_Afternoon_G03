@@ -127,12 +127,11 @@ public class SQLiteDataController extends SQLiteOpenHelper {
 
     // Cac method get data
 
-    public ArrayList<Example> getListExample() {
+    public ArrayList<Example> getListExample(String IDExample) {
         ArrayList<Example> list = new ArrayList<>();
         try {
             openDataBase();
-            Cursor cs = database.rawQuery("select * from Example", null);
-            Log.d("Tag", "getListExample: " + cs.getCount());
+            Cursor cs = database.rawQuery("select * from Example where Id_Example = "+'"'+IDExample+'"', null);
             Example example;
             while (cs.moveToNext()) {
                 example = new Example(cs.getString(0), cs.getString(1), cs.getString(2));
