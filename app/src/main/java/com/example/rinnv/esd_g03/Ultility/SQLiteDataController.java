@@ -224,11 +224,16 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         return list;
     }
 
-    public ArrayList<Word> getListWord() {
+    //code getWordByPhoneticGrID
+    public ArrayList<Word> getWordByPhoneticGrID(String phoneticGrId) {
         ArrayList<Word> list = new ArrayList<>();
         try {
             openDataBase();
-            Cursor cs = database.rawQuery("select * from WORD", null);
+            String query = "select * from WORD where Pho_Group = " + '"' + phoneticGrId + '"';
+            Cursor cs = database.rawQuery(query, null);
+            Log.d("Tag", "getWordByPhoneticGrID: " + query);
+            Log.d("Tag", "getWordByPhoneticGrID: " + cs.getCount());
+
             Word word;
             while (cs.moveToNext()) {
                 word = new Word(cs.getString(0), cs.getString(1),

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         couple2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Word> wordArrayList = db.getListWord();
+                ArrayList<Word> wordArrayList = db.getWordByPhoneticGrID("1");
                 // co khi no ko lay dc phan tu nao nen no ko in
                 // ok
                 Log.d(TAG, "onClick: So luong example dc tim thay "+wordArrayList.size());

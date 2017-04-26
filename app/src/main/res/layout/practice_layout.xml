@@ -30,7 +30,7 @@
         android:layout_alignStart="@+id/home" />
 
     <TextView
-        android:id="@+id/word1"
+        android:id="@+id/wordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -42,14 +42,14 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/word2"
+        android:id="@+id/wordPhonetic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:layout_marginTop="36dp"
         android:textColor="#339966"
         android:textSize="18dp"
-        android:layout_below="@+id/word1"
+        android:layout_below="@+id/wordText"
         android:layout_centerHorizontal="true" />
 
     <ImageButton
@@ -90,7 +90,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:srcCompat="@drawable/true2"
-        android:layout_below="@+id/word2"
+        android:layout_below="@+id/wordPhonetic"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp" />
 
