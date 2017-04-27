@@ -67,7 +67,6 @@ public class WordFragment extends Fragment {
                 //lay ramdom 1 word trong array word
                 int rnd = new Random().nextInt(wordSize);
                 Word word = words.get(rnd);
-
                 //
                 String wordText = word.getWord();
                 String wordPhonetic = word.getPhonetic();
@@ -76,7 +75,6 @@ public class WordFragment extends Fragment {
                 wordPhoneticTV.setText(wordPhonetic);
             }
         });
-
 
         menu =(ImageButton)rootView.findViewById(R.id.btnmenu);
         return rootView;

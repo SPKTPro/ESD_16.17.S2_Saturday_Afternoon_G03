@@ -18,6 +18,7 @@ public class YouTubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     private MyPlayerStateChangeListener playerStateChangeListener;
     private MyPlaybackEventListener playbackEventListener;
     private YouTubePlayer player;
+    private  String youtube_key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class YouTubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         playerStateChangeListener = new MyPlayerStateChangeListener();
         playbackEventListener = new MyPlaybackEventListener();
+
+        youtube_key = getIntent().getStringExtra(Config.YOUTUBE_LINK);
 
         /*final EditText seekToText = (EditText) findViewById(R.id.seek_to_text);
         Button seekToButton = (Button) findViewById(R.id.seek_to_button);
@@ -48,7 +51,7 @@ public class YouTubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         player.setPlaybackEventListener(playbackEventListener);
 
         if (!wasRestored) {
-            player.cueVideo("fhWaJi1Hsfo"); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
+            player.cueVideo(youtube_key); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
         }
     }
 

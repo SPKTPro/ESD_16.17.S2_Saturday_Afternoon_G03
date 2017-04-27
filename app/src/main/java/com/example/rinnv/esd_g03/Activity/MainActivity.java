@@ -3,17 +3,14 @@ package com.example.rinnv.esd_g03.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,20 +37,9 @@ public class MainActivity extends AppCompatActivity {
         couple2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Word> wordArrayList = db.getWordByPhoneticGrID("1");
-                // co khi no ko lay dc phan tu nao nen no ko in
-                // ok
-                Log.d(TAG, "onClick: So luong example dc tim thay "+wordArrayList.size());
-                for (Word word : wordArrayList) {
-                    // ghi ra file log vs tag la onClick, neu muon xem lai gia tri log thi vao tab
-                    // android monitor nhap tag
-                    // binh thuong ma
-                    //luc nay khong chay
-
-                    Log.d(TAG, "onClick: " + word.getWord());
-                }
-
-
+               Intent intent = new Intent(MainActivity.this,YouTubeActivity.class);
+                intent.putExtra(Config.YOUTUBE_LINK,"fhWaJi1Hsfo");
+                startActivity(intent);
             }
         });
 
