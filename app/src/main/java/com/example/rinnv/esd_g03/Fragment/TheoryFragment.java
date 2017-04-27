@@ -50,7 +50,7 @@ public class TheoryFragment extends Fragment {
         //lay phonetic va pronounce cua phonetic thu nhat
         Phonetic phonetic1 = phonetics.get(0);
         String phonetic1Title = phonetic1.getPhonetic();
-        String linkUtube_Pho1 = phonetic1.getLink();
+        final String linkUtube_Pho1 = phonetic1.getLink();
         ArrayList<Pronounce> pronouncesPhonetic1 = db.getProunceByPhonetic(phonetic1.getId_Pronounce());
         List<String> pronounces1 = new ArrayList<>();
         List<Example> examples1 = db.getListExample(phonetic1.getId_Example());
@@ -61,7 +61,7 @@ public class TheoryFragment extends Fragment {
         //lay phonetic va pronounce cua phonetic thu hai
         Phonetic phonetic2 = phonetics.get(1);
         String phonetic2Title = phonetic2.getPhonetic();
-        String linkUtube_Pho2 = phonetic2.getLink();
+        final String linkUtube_Pho2 = phonetic2.getLink();
         ArrayList<Pronounce> pronouncesPhonetic2 = db.getProunceByPhonetic(phonetic2.getId_Pronounce());
         List<String> pronounces2 = new ArrayList<>();
         List<Example> examples2 = db.getListExample(phonetic2.getId_Example());
@@ -110,7 +110,7 @@ public class TheoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),YouTubeActivity.class);
-                intent.putExtra(Config.YOUTUBE_LINK,"fhWaJi1Hsfo");
+                intent.putExtra(Config.YOUTUBE_LINK, linkUtube_Pho1);
                 startActivity(intent);
             }
         });
@@ -119,7 +119,7 @@ public class TheoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),YouTubeActivity.class);
-                intent.putExtra(Config.YOUTUBE_LINK,"fhWaJi1Hsfo");
+                intent.putExtra(Config.YOUTUBE_LINK, linkUtube_Pho2);
                 startActivity(intent);
             }
         });
