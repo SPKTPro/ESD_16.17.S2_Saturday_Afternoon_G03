@@ -16,7 +16,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="ɪ vs i:"
         android:layout_below="@+id/textView3"
         android:layout_alignStart="@+id/button2"
         android:layout_marginTop="139dp" />
@@ -26,7 +26,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="ʊ vs u:"
         android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true" />
 

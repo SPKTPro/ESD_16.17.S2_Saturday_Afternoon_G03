@@ -45,7 +45,7 @@ public class WordFragment extends Fragment {
         final int wordSize = words.size();
 
         //lay ramdom 1 word trong array word
-        int rnd = new Random().nextInt(wordSize);
+        int rnd = new Random().nextInt(wordSize-1);
         Word word = words.get(rnd);
 
         //
@@ -65,7 +65,7 @@ public class WordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //lay ramdom 1 word trong array word
-                int rnd = new Random().nextInt(wordSize);
+                int rnd = new Random().nextInt(wordSize-1);
                 Word word = words.get(rnd);
                 //
                 String wordText = word.getWord();

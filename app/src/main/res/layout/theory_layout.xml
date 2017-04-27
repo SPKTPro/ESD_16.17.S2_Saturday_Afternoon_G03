@@ -61,6 +61,7 @@
                         android:scrollbars="none" />
 
                     <ImageButton
+                        android:id="@+id/btnUtube_Pho1"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_marginTop="15dp"
@@ -94,6 +95,7 @@
                         android:scrollbars="none" />
 
                     <ImageButton
+                        android:id="@+id/btnUtube_Pho2"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_marginTop="15dp"

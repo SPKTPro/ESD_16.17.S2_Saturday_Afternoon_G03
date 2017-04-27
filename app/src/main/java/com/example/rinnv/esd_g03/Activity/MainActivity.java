@@ -37,7 +37,24 @@ public class MainActivity extends AppCompatActivity {
         couple2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this,YouTubeActivity.class);
+                /*ArrayList<Word> wordArrayList = db.getWordByPhoneticGrID("1");
+                // co khi no ko lay dc phan tu nao nen no ko in
+                // ok
+                Log.d(TAG, "onClick: So luong example dc tim thay "+wordArrayList.size());
+                for (Word word : wordArrayList) {
+                    // ghi ra file log vs tag la onClick, neu muon xem lai gia tri log thi vao tab
+                    // android monitor nhap tag
+                    // binh thuong ma
+                    //luc nay khong chay
+
+                    Log.d(TAG, "onClick: " + word.getWord());
+                }*/
+
+                /*Intent intent = new Intent(MainActivity.this, TabActivity.class);
+                Config.PHEONIC_GROUP_ID ="2";
+                startActivity(intent);*/
+
+                Intent intent = new Intent(MainActivity.this,YouTubeActivity.class);
                 intent.putExtra(Config.YOUTUBE_LINK,"fhWaJi1Hsfo");
                 startActivity(intent);
             }
