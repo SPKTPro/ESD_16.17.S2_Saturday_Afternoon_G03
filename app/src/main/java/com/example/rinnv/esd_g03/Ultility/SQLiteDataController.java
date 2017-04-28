@@ -1,5 +1,6 @@
 package com.example.rinnv.esd_g03.Ultility;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -131,7 +132,7 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         ArrayList<Example> list = new ArrayList<>();
         try {
             openDataBase();
-            Cursor cs = database.rawQuery("select * from Example where Id_Example = "+'"'+IDExample+'"', null);
+            Cursor cs = database.rawQuery("select * from Example where Id_Example = " + '"' + IDExample + '"', null);
             Example example;
             while (cs.moveToNext()) {
                 example = new Example(cs.getString(0), cs.getString(1), cs.getString(2));
@@ -172,7 +173,7 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         ArrayList<Pronounce> list = new ArrayList<>();
         try {
             openDataBase();
-            Cursor cs = database.rawQuery("select * from PRONOUNCE where Id_Pronounce =  "+'"'+phonetic+'"', null);
+            Cursor cs = database.rawQuery("select * from PRONOUNCE where Id_Pronounce =  " + '"' + phonetic + '"', null);
             Pronounce pronounce;
             while (cs.moveToNext()) {
                 pronounce = new Pronounce(cs.getString(0), cs.getString(1));
@@ -247,6 +248,7 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         }
         return list;
     }
+
     //code getSentenceByPhoneticGrID
     public ArrayList<Sentence> getSentenceByPhoneticGrID(String phoneticGrId) {
         ArrayList<Sentence> list = new ArrayList<>();
@@ -260,7 +262,7 @@ public class SQLiteDataController extends SQLiteOpenHelper {
             Sentence sentence;
             while (cs.moveToNext()) {
                 sentence = new Sentence(cs.getString(0), cs.getString(1),
-                        Integer.parseInt(cs.getString(2)), cs.getString(3),cs.getString(4));
+                        Integer.parseInt(cs.getString(2)), cs.getString(3), cs.getString(4));
                 list.add(sentence);
             }
         } catch (SQLException e) {
@@ -269,5 +271,32 @@ public class SQLiteDataController extends SQLiteOpenHelper {
             close();
         }
         return list;
+    }
+
+
+    public boolean updateNumcheckWord(String Word, int num) {
+        try {
+            openDataBase();
+            ContentValues values = new ContentValues();
+            values.put("Num_Check", num);
+            database.update("WORD", values, "Word = " + '"' + Word + '"', null);
+            return true;
+        } catch (Exception ex) {
+            Log.e("Tag", "updateNumcheckWord: " + ex.getLocalizedMessage());
+            return false;
+        }
+    }
+
+    public boolean updateNumcheckSentence(String Sentence, int num) {
+        try {
+            openDataBase();
+            ContentValues values = new ContentValues();
+            values.put("Num_Check", num);
+            database.update("SENTENCE", values, "Sentence =" + '"' + Sentence + '"', null);
+            return true;
+        } catch (Exception ex) {
+            Log.e("Tag", "updateNumcheckWord: " + ex.getLocalizedMessage());
+            return false;
+        }
     }
 }
