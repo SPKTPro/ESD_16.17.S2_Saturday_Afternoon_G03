@@ -57,8 +57,8 @@
         android:layout_marginBottom="48dp"
         android:background="@drawable/speaker3"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/wordPhonetic"
-        android:layout_marginStart="5dp" />
+        android:layout_toEndOf="@+id/btnrecord"
+        android:layout_marginStart="10dp" />
     <ImageButton
         android:id="@+id/btnrecord"
         android:layout_width="65dp"
