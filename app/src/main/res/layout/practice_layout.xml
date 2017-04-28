@@ -23,7 +23,6 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:text="Pronounce words below"
         android:layout_below="@+id/home"
         android:layout_alignStart="@+id/home" />
@@ -32,7 +31,7 @@
         android:id="@+id/wordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="33dp"
         android:text="TextView"
         android:textSize="35dp"
         android:textColor="#009966"
@@ -53,12 +52,13 @@
 
     <ImageButton
         android:id="@+id/btnspeaker"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="43dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/speaker3"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/wordPhonetic" />
+        android:layout_toEndOf="@+id/wordPhonetic"
+        android:layout_marginStart="5dp" />
     <ImageButton
         android:id="@+id/btnrecord"
         android:layout_width="65dp"
@@ -91,6 +91,6 @@
         app:srcCompat="@drawable/true2"
         android:layout_below="@+id/wordPhonetic"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp" />
+        android:layout_marginTop="25dp" />
 
 </RelativeLayout>

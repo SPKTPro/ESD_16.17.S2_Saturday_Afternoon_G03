@@ -103,8 +103,8 @@ public class TheoryFragment extends Fragment {
         listView_phonetic2_Example.setExpanded(true);
 
         //btn Utube
-        ImageButton btnUtube_Pho1 = (ImageButton) rootView.findViewById(R.id.btnUtube_Pho1);
-        ImageButton btnUtube_Pho2 = (ImageButton) rootView.findViewById(R.id.btnUtube_Pho2);
+        ImageButton btnUtube_Pho1 = (ImageButton) rootView.findViewById(R.id.btnvideo_Pho1);
+        ImageButton btnUtube_Pho2 = (ImageButton) rootView.findViewById(R.id.btnvideo_Pho2);
 
         btnUtube_Pho1.setOnClickListener(new View.OnClickListener(){
             @Override
