@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.rinnv.esd_g03.Models.Sentence;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
@@ -34,6 +35,12 @@ public class WordFragment extends Fragment {
     ImageButton btnRecord;
     ImageButton btnSpeaker;
     ImageButton result;
+    ImageButton replay;
+    String pheonicGrId;
+    int type=1;
+    ArrayList<Word> words;
+    ArrayList<Sentence> sentence;
+    ArrayList test;
 
     int count;
     ImageButton menu;
@@ -51,9 +58,10 @@ public class WordFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.practice_layout, container, false);
         SQLiteDataController db = new SQLiteDataController(container.getContext());
-        String pheonicGrId = Config.PHEONIC_GROUP_ID;
+        pheonicGrId = Config.PHEONIC_GROUP_ID;
         //lay array word theo id
-        final ArrayList<Word> words = db.getWordByPhoneticGrID(pheonicGrId);
+        words = db.getWordByPhoneticGrID(pheonicGrId);
+        sentence = db.getSentenceByPhoneticGrID(pheonicGrId);
      //   final ArrayList<Word> test = db.getWordByPhoneticGrID(pheonicGrId);;
 
         //lay ramdom 1 word trong array word
@@ -64,9 +72,12 @@ public class WordFragment extends Fragment {
         result=(ImageButton)rootView.findViewById(R.id.result) ;
         btnNextWord = (ImageButton) rootView.findViewById(R.id.btnnext);
         btnPreWord = (ImageButton) rootView.findViewById(R.id.btnprevious);
+        replay = (ImageButton) rootView.findViewById(R.id.btnreplay);
         btnSpeaker = (ImageButton) rootView.findViewById(R.id.btnspeaker);
         btnRecord= (ImageButton) rootView.findViewById(R.id.btnrecord);
-        final ArrayList<Word> test = Startgame(words);
+
+        test = Startgame(words, sentence);
+
         btnNextWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,11 +92,13 @@ public class WordFragment extends Fragment {
                 }
                 if(count<9) {
                     count = count + 1;
-                    Word word = test.get(count);
-                    String wordText = word.getWord();
-                    String wordPhonetic = word.getPhonetic();
-                    wordTextTV.setText(wordText);
-                    wordPhoneticTV.setText(wordPhonetic);
+                    if(type==1) {
+                        setWord(count);
+                    }
+                    else
+                    {
+                        setSentence(count);
+                    }
                 }
                 else {
                     wordTextTV.setText("5/10");
@@ -102,28 +115,32 @@ public class WordFragment extends Fragment {
                 if(count>0)
                 {
                     btnPreWord.setVisibility(View.VISIBLE);
-                    Word word = test.get(count);
-                    String wordText = word.getWord();
-                    String wordPhonetic = word.getPhonetic();
-                    wordTextTV.setText(wordText);
-                    wordPhoneticTV.setText(wordPhonetic);
+                    if(type==1) {
+                        setWord(count);
+                    }
+                    else
+                    {
+                        setSentence(count);
+                    }
                 }
                 else
                 {
-                    Word word = test.get(0);
-                    String wordText = word.getWord();
-                    String wordPhonetic = word.getPhonetic();
-                    wordTextTV.setText(wordText);
-                    wordPhoneticTV.setText(wordPhonetic);
+                    if(type==1) {
+                        setWord(0);
+                    }
+                    else
+                    {
+                        setSentence(0);
+                    }
                     btnPreWord.setVisibility(View.INVISIBLE);
                 }
 
             }
         });
-        result.setOnClickListener(new View.OnClickListener() {
+        replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Startgame(words);
+                Startgame(words,sentence);
                // onCreateView(inflater,container,savedInstanceState);
 
             }
@@ -131,42 +148,83 @@ public class WordFragment extends Fragment {
         menu =(ImageButton)rootView.findViewById(R.id.btnmenu);
         return rootView;
     }
+    public  void setWord(int count)
+    {
+        Word word = (Word) test.get(count);
+        String wordText = word.getWord();
+        String wordPhonetic = word.getPhonetic();
+        wordTextTV.setText(wordText);
+        wordPhoneticTV.setText(wordPhonetic);
+    }
+    public  void setSentence(int count)
+    {
+        Sentence word = (Sentence) test.get(count);
+        String wordText = word.getSentence();
+        String wordPhonetic = word.getPhonetic_Word1();
+        wordTextTV.setText(wordText);
+        wordPhoneticTV.setText(wordPhonetic);
+    }
     public void EndGame()
     {
-        result.setBackgroundResource(R.drawable.repeat);
+        result.setVisibility(View.INVISIBLE);
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
         btnSpeaker.setVisibility(View.INVISIBLE);
         btnRecord.setVisibility(View.INVISIBLE);
         wordPhoneticTV.setVisibility(View.INVISIBLE);
-        result.setClickable(true);
+        replay.setVisibility(View.VISIBLE);
     }
-    public ArrayList<Word> Startgame(ArrayList<Word> words)
+    public ArrayList Startgame(ArrayList<Word> words,ArrayList<Sentence> sentence)
     {
         count=0;
-        List<Word> test1 = new ArrayList<Word>();
-        for (int i = 0; i < words.size(); i++)
+        ArrayList test;
+        if(type==1){
+            List<Word> test1 = new ArrayList<Word>();
+            for (int i = 0; i < words.size(); i++)
+            {
+                test1.add(words.get(i));
+            }
+            Collections.shuffle(test1);
+            Collections.shuffle(test1);
+            test = new ArrayList<Word>();
+            for(int i=0;i<10;i++) {
+                test.add(test1.get(i));
+            }
+            Word word = (Word) test.get(0);
+            String wordText = word.getWord();
+            String wordPhonetic = word.getPhonetic();
+            wordTextTV.setText(wordText);
+            wordPhoneticTV.setText(wordPhonetic);
+        }
+        else
         {
-            test1.add(words.get(i));
+            List<Sentence> test1 = new ArrayList<Sentence>();
+            for (int i = 0; i < sentence.size(); i++)
+            {
+                test1.add(sentence.get(i));
+            }
+            Collections.shuffle(test1);
+            Collections.shuffle(test1);
+            test = new ArrayList<Sentence>();
+            for(int i=0;i<10;i++) {
+                test.add(test1.get(i));
+            }
+            Sentence word = (Sentence) test.get(0);
+            String wordText = word.getSentence();
+            String wordPhonetic = word.getPhonetic_Word1();
+            wordTextTV.setText(wordText);
+            wordPhoneticTV.setText(wordPhonetic);
+
         }
-        Collections.shuffle(test1);
-        ArrayList<Word> test = new ArrayList<Word>();
-        for(int i=0;i<10;i++) {
-            test.add(test1.get(i));
-        }
-        result.setBackgroundResource(R.drawable.true2);
-        result.setClickable(false);
+        replay.setVisibility(View.INVISIBLE);
+        result.setVisibility(View.VISIBLE);
         btnNextWord.setVisibility(View.VISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
         btnSpeaker.setVisibility(View.VISIBLE);
         btnRecord.setVisibility(View.VISIBLE);
         wordPhoneticTV.setVisibility(View.VISIBLE);
-        Word word = test.get(0);
-        String wordText = word.getWord();
-        String wordPhonetic = word.getPhonetic();
-        wordTextTV.setText(wordText);
-        wordPhoneticTV.setText(wordPhonetic);
-        return  test;
+        return test;
+
     }
     @Override
     public void onResume() {
@@ -175,16 +233,19 @@ public class WordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext())
-                        .setTitle("asdddddddddddddddddddddddddd")
-                        .setMessage("ddddddddddddddddddddddddddd?")
+                        .setTitle("Choose test:")
+                        .setMessage("")
                         .setPositiveButton("Word", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                textView.setText("WORD");
+                                type=1;
+                                Startgame(words,sentence);
+
                             }
                         })
                         .setNegativeButton("Sentence", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                textView.setText("SENTENCE");
+                                type=2;
+                                Startgame(words,sentence);
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)

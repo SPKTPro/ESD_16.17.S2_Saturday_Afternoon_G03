@@ -247,4 +247,27 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         }
         return list;
     }
+    //code getSentenceByPhoneticGrID
+    public ArrayList<Sentence> getSentenceByPhoneticGrID(String phoneticGrId) {
+        ArrayList<Sentence> list = new ArrayList<>();
+        try {
+            openDataBase();
+            String query = "select * from SENTENCE where Pho_Group = " + '"' + phoneticGrId + '"';
+            Cursor cs = database.rawQuery(query, null);
+            Log.d("Tag", "getSentenceByPhoneticGrID: " + query);
+            Log.d("Tag", "getSentenceByPhoneticGrID: " + cs.getCount());
+
+            Sentence sentence;
+            while (cs.moveToNext()) {
+                sentence = new Sentence(cs.getString(0), cs.getString(1),
+                        Integer.parseInt(cs.getString(2)), cs.getString(3),cs.getString(4));
+                list.add(sentence);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return list;
+    }
 }
