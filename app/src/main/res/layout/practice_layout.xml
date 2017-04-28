@@ -6,7 +6,7 @@
     <ImageButton
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@drawable/home3"
+        android:background="#ffffff"
         android:layout_margin="15dp"
         android:id="@+id/home" />
     <ImageButton
@@ -84,11 +84,11 @@
         android:layout_alignTop="@+id/btnspeaker"
         android:layout_alignParentEnd="true" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/result"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/true2"
+        android:background="@drawable/true2"
         android:layout_below="@+id/wordPhonetic"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp" />
