@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.rinnv.esd_g03.Activity.TabActivity;
 import com.example.rinnv.esd_g03.Models.Sentence;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
@@ -76,6 +78,17 @@ public class WordFragment extends Fragment {
         btnSpeaker = (ImageButton) rootView.findViewById(R.id.btnspeaker);
         btnRecord = (ImageButton) rootView.findViewById(R.id.btnrecord);
 
+        btnRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (((TabActivity) container.getContext()).isConnected()) {
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString());
+                } else {
+                    Toast.makeText(container.getContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         test = Startgame(words, sentence);
 
         btnNextWord.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +187,7 @@ public class WordFragment extends Fragment {
             String wordPhonetic = word.getPhonetic_Word1();
             wordTextTV.setText(wordText);
             wordPhoneticTV.setText(wordPhonetic);
-            Log.d(TAG, "setSentence: "+wordText);
+            Log.d(TAG, "setSentence: " + wordText);
 
         } catch (Exception ex) {
             Log.d("Tag", "setSentence: " + ex.getLocalizedMessage());

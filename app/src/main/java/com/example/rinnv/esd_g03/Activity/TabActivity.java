@@ -1,7 +1,11 @@
 package com.example.rinnv.esd_g03.Activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,11 +13,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Fragment.TheoryFragment;
 import com.example.rinnv.esd_g03.Fragment.WordFragment;
 import com.example.rinnv.esd_g03.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.rinnv.esd_g03.R.id.container;
@@ -22,8 +28,10 @@ public class TabActivity extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private String TAG ="Tag";
-    public static int Choice =0;
+    public String your_word = "";
+    private final int SPEECH_RECOGNITION_CODE = 1001;
+    private String TAG = "Tag";
+    public static int Choice = 0;
 
     private static ViewPager mViewPager;
     // Tab titles
@@ -34,6 +42,26 @@ public class TabActivity extends AppCompatActivity {
             R.layout.theory_layout
             , R.layout.practice_layout
     };
+    public void startSpeechToText(String word) {
+        your_word = word;
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, word);
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS,
+                new Long(1000));
+        startActivityForResult(intent, SPEECH_RECOGNITION_CODE);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SPEECH_RECOGNITION_CODE && resultCode == RESULT_OK) {
+
+            final ArrayList<String> matches_text = data
+                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+            Toast.makeText(this, matches_text.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +69,7 @@ public class TabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),getApplicationContext());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(container);
@@ -85,17 +113,18 @@ public class TabActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
     }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private HashMap<Integer, String> mFragmentTags;
         private FragmentManager fragmentManager;
         private Context context;
 
-        public SectionsPagerAdapter(FragmentManager fm,Context context) {
+        public SectionsPagerAdapter(FragmentManager fm, Context context) {
             super(fm);
-            fragmentManager=fm;
+            fragmentManager = fm;
             mFragmentTags = new HashMap<Integer, String>();
-            this.context =context;
+            this.context = context;
         }
 
         @Override
@@ -144,5 +173,13 @@ public class TabActivity extends AppCompatActivity {
         }
     }
 
-
+    public boolean isConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo net = cm.getActiveNetworkInfo();
+        if (net != null && net.isAvailable() && net.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
