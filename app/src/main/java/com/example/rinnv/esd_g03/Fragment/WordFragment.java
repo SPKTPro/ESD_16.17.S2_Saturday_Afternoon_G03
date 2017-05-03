@@ -56,6 +56,7 @@ public class WordFragment extends Fragment {
         return wordFragment;
     }
 
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.practice_layout, container, false);
@@ -78,6 +79,12 @@ public class WordFragment extends Fragment {
         btnSpeaker = (ImageButton) rootView.findViewById(R.id.btnspeaker);
         btnRecord = (ImageButton) rootView.findViewById(R.id.btnrecord);
 
+        btnSpeaker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((TabActivity) container.getContext()).startTextToSpeech(wordTextTV.getText().toString());
+            }
+        });
         btnRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

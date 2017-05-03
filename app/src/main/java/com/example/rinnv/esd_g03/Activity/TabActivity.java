@@ -6,12 +6,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.example.rinnv.esd_g03.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 import static com.example.rinnv.esd_g03.R.id.container;
 
@@ -32,7 +35,8 @@ public class TabActivity extends AppCompatActivity {
     private final int SPEECH_RECOGNITION_CODE = 1001;
     private String TAG = "Tag";
     public static int Choice = 0;
-
+    private static final int SPEECH_API_CHECK = 1234;
+    private static TextToSpeech mTts;
     private static ViewPager mViewPager;
     // Tab titles
     private String[] tabs = {"THEORY", "PRACTICE"};
@@ -42,6 +46,18 @@ public class TabActivity extends AppCompatActivity {
             R.layout.theory_layout
             , R.layout.practice_layout
     };
+
+    private void CheckTTS() {
+
+        Intent checkIntent = new Intent();
+        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkIntent, SPEECH_API_CHECK);
+    }
+
+    public void startTextToSpeech(String word) {
+        mTts.speak(word, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
     public void startSpeechToText(String word) {
         your_word = word;
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -52,6 +68,7 @@ public class TabActivity extends AppCompatActivity {
                 new Long(1000));
         startActivityForResult(intent, SPEECH_RECOGNITION_CODE);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SPEECH_RECOGNITION_CODE && resultCode == RESULT_OK) {
@@ -60,6 +77,39 @@ public class TabActivity extends AppCompatActivity {
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
             Toast.makeText(this, matches_text.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        if (requestCode == SPEECH_API_CHECK) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                // success, create the TTS instance
+                mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int i) {
+                        if (i == TextToSpeech.SUCCESS) {
+
+                            int result = mTts.setLanguage(Locale.getDefault());
+
+
+                            if (result == TextToSpeech.LANG_MISSING_DATA
+                                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                Log.e("TTS", "This Language is not supported");
+                            } else {
+
+
+                            }
+                        } else {
+                            // Initialization failed.
+                            Log.e("app", "Could not initialize TextToSpeech.");
+                        }
+                    }
+                });
+            } else {
+                // missing data, install it
+                Intent installIntent = new Intent();
+                installIntent.setAction(
+                        TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installIntent);
+            }
         }
     }
 
@@ -70,7 +120,7 @@ public class TabActivity extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
-
+        CheckTTS();
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(container);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
