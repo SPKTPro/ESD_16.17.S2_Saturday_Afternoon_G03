@@ -1,4 +1,4 @@
-package com.example.rinnv.esd_g03.Fragment;
+package com.example.rinnv.esd_g03.Adaptor;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
