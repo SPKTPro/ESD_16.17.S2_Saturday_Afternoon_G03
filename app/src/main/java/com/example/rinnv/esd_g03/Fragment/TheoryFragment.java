@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.rinnv.esd_g03.Activity.YouTubeActivity;
 import com.example.rinnv.esd_g03.Adaptor.PhenoticExampleAdapter;
+import com.example.rinnv.esd_g03.Adaptor.PronounceAdapter;
 import com.example.rinnv.esd_g03.Models.Example;
 import com.example.rinnv.esd_g03.Models.Phonetic;
 import com.example.rinnv.esd_g03.Models.Pronounce;
@@ -92,6 +93,11 @@ public class TheoryFragment extends Fragment {
         listView_pho2Guide.setAdapter(new ArrayAdapter<>(container.getContext(), R.layout.pronouce_example_item,
                 R.id.tv_phoWord1, pronounces2));
         listView_pho2Guide.setExpanded(true);*/
+        ExpandableHeightListView listView_pho1Guide = (ExpandableHeightListView) rootView.findViewById(R.id.list_pho1Guide);
+       listView_pho1Guide.setAdapter(new PronounceAdapter(container.getContext(),
+                R.layout.pronouce_example_item,pronouncesPhonetic1,pronouncesPhonetic2));
+        listView_pho1Guide.setExpanded(true);
+
 
 
         ExpandableHeightListView listView_phonetic1_Example = (ExpandableHeightListView) rootView.findViewById(R.id.listView_phonetic1_Example);
