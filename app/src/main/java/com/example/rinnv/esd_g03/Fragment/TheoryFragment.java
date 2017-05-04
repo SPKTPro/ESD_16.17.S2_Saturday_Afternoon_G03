@@ -75,12 +75,13 @@ public class TheoryFragment extends Fragment {
         TextView pho1_TitleEX = (TextView) rootView.findViewById(R.id.tv_pho1TitleEx);
         TextView pho2_TitleEX = (TextView) rootView.findViewById(R.id.tv_pho2TitleEx);
 
-        pho1_Title.setText(phonetic1Title);
-        pho1_TitleEX.setText(phonetic1Title);
-        pho2_Title.setText(phonetic2Title);
-        pho2_TitleEX.setText(phonetic2Title);
+        pho1_Title.setText("/"+phonetic1Title+"/");
+        pho1_TitleEX.setText("/"+phonetic1Title+"/");
+        pho2_Title.setText("/"+phonetic2Title+"/");
+        pho2_TitleEX.setText("/"+phonetic2Title+"/");
 
         //lấy nội dung pronounce
+        /*
         ExpandableHeightListView listView_pho1Guide = (ExpandableHeightListView) rootView.findViewById(R.id.list_pho1Guide);
         listView_pho1Guide.setAdapter(new ArrayAdapter<>(container.getContext(), R.layout.pronouce_example_item,
                 R.id.tv_phoWord1, pronounces1));
@@ -90,7 +91,7 @@ public class TheoryFragment extends Fragment {
         ExpandableHeightListView listView_pho2Guide = (ExpandableHeightListView) rootView.findViewById(R.id.list_pho2Guide);
         listView_pho2Guide.setAdapter(new ArrayAdapter<>(container.getContext(), R.layout.pronouce_example_item,
                 R.id.tv_phoWord1, pronounces2));
-        listView_pho2Guide.setExpanded(true);
+        listView_pho2Guide.setExpanded(true);*/
 
 
         ExpandableHeightListView listView_phonetic1_Example = (ExpandableHeightListView) rootView.findViewById(R.id.listView_phonetic1_Example);
