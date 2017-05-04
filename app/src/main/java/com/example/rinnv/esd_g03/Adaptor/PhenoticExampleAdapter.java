@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.rinnv.esd_g03.Activity.TabActivity;
 import com.example.rinnv.esd_g03.Models.Example;
 import com.example.rinnv.esd_g03.R;
 
@@ -35,13 +37,21 @@ public class PhenoticExampleAdapter extends ArrayAdapter<Example> {
             v = vi.inflate(R.layout.example_item, null);
         }
 
-        Example p = getItem(position);
+        final Example p = getItem(position);
 
         if (p != null) {
             TextView tt1 = (TextView) v.findViewById(R.id.tv_pho1Ex1);
             tt1.setText(p.getExample());
         }
 
+
+        ImageButton speak = (ImageButton) v.findViewById(R.id.speak);
+        speak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((TabActivity)getContext()).startTextToSpeech(p.getExample());
+            }
+        });
         return v;
     }
 }
