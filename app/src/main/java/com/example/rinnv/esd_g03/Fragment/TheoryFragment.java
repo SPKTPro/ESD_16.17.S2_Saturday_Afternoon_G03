@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -53,22 +52,16 @@ public class TheoryFragment extends Fragment {
         String phonetic1Title = phonetic1.getPhonetic();
         final String linkUtube_Pho1 = phonetic1.getLink();
         ArrayList<Pronounce> pronouncesPhonetic1 = db.getProunceByPhonetic(phonetic1.getId_Pronounce());
-        List<String> pronounces1 = new ArrayList<>();
         List<Example> examples1 = db.getListExample(phonetic1.getId_Example());
-        for (Pronounce pronounce : pronouncesPhonetic1) {
-            pronounces1.add(pronounce.getPronounce());
-        }
+
 
         //lay phonetic va pronounce cua phonetic thu hai
         Phonetic phonetic2 = phonetics.get(1);
         String phonetic2Title = phonetic2.getPhonetic();
         final String linkUtube_Pho2 = phonetic2.getLink();
         ArrayList<Pronounce> pronouncesPhonetic2 = db.getProunceByPhonetic(phonetic2.getId_Pronounce());
-        List<String> pronounces2 = new ArrayList<>();
         List<Example> examples2 = db.getListExample(phonetic2.getId_Example());
-        for (Pronounce pronounce : pronouncesPhonetic2) {
-            pronounces2.add(pronounce.getPronounce());
-        }
+
 
         //lấy tên các phonetic
         TextView pho1_Title = (TextView) rootView.findViewById(R.id.tv_pho1Title);
@@ -93,12 +86,12 @@ public class TheoryFragment extends Fragment {
         listView_pho2Guide.setAdapter(new ArrayAdapter<>(container.getContext(), R.layout.pronouce_example_item,
                 R.id.tv_phoWord1, pronounces2));
         listView_pho2Guide.setExpanded(true);*/
+
+
         ExpandableHeightListView listView_pho1Guide = (ExpandableHeightListView) rootView.findViewById(R.id.list_pho1Guide);
        listView_pho1Guide.setAdapter(new PronounceAdapter(container.getContext(),
                 R.layout.pronouce_example_item,pronouncesPhonetic1,pronouncesPhonetic2));
         listView_pho1Guide.setExpanded(true);
-
-
 
         ExpandableHeightListView listView_phonetic1_Example = (ExpandableHeightListView) rootView.findViewById(R.id.listView_phonetic1_Example);
         listView_phonetic1_Example.setAdapter(new PhenoticExampleAdapter(container.getContext(), R.layout.example_item, examples1));
