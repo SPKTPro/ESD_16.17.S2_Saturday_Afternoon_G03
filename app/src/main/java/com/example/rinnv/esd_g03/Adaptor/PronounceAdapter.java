@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.rinnv.esd_g03.Models.Example;
 import com.example.rinnv.esd_g03.Models.Pronounce;
 import com.example.rinnv.esd_g03.R;
 
@@ -21,8 +20,14 @@ import java.util.List;
 
 public class PronounceAdapter extends ArrayAdapter<Pronounce> {
 
-    public PronounceAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Pronounce> objects) {
-        super(context, resource, objects);
+    private List<Pronounce> pronounces1, pronounces2;
+
+    public PronounceAdapter(@NonNull Context context, @LayoutRes int resource,
+                            @NonNull List<Pronounce> objects1,@NonNull List<Pronounce> objects2) {
+        super(context,resource);
+        pronounces1=objects1;
+        pronounces2=objects2;
+
     }
 
     @Override
@@ -36,12 +41,14 @@ public class PronounceAdapter extends ArrayAdapter<Pronounce> {
             v = vi.inflate(R.layout.pronouce_example_item, null);
         }
 
-        Pronounce p = getItem(position);
+        Pronounce p1 = pronounces1.get(position);
+        Pronounce p2 =pronounces2.get(position);
 
-        if (p != null) {
+        if (p1 != null && p2 != null) {
             TextView tt1 = (TextView) v.findViewById(R.id.tv_phoWord1);
             TextView tt2 = (TextView) v.findViewById(R.id.tv_phoWord2);
-            tt1.setText(p.getPronounce());
+            tt1.setText(p1.getPronounce());
+            tt2.setText(p2.getPronounce());
         }
 
         return v;
