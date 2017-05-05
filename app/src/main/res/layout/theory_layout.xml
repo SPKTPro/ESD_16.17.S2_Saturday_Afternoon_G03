@@ -147,7 +147,8 @@
                     <com.example.rinnv.esd_g03.Ultility.ExpandableHeightListView
                         android:id="@+id/listView_phonetic1_Example"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:paddingRight="7dp"/>
                 </LinearLayout>
 
                 <LinearLayout

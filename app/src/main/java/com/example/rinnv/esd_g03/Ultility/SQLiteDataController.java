@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.rinnv.esd_g03.Models.CWord;
 import com.example.rinnv.esd_g03.Models.Example;
 import com.example.rinnv.esd_g03.Models.Phonetic;
 import com.example.rinnv.esd_g03.Models.Pronounce;
@@ -137,6 +138,23 @@ public class SQLiteDataController extends SQLiteOpenHelper {
             while (cs.moveToNext()) {
                 example = new Example(cs.getString(0), cs.getString(1), cs.getString(2));
                 list.add(example);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return list;
+    }
+    public ArrayList<CWord> getListCWord(String IDExample) {
+        ArrayList<CWord> list = new ArrayList<>();
+        try {
+            openDataBase();
+            Cursor cs = database.rawQuery("select * from CWORD where Pho_Group = " + '"' + IDExample + '"', null);
+            CWord cWord;
+            while (cs.moveToNext()) {
+                cWord = new CWord(cs.getString(0), cs.getString(1), cs.getString(2),cs.getString(3), cs.getString(4),Integer.parseInt(cs.getString(5)));
+                list.add(cWord);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -287,12 +305,12 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         }
     }
 
-    public boolean updateNumcheckSentence(String Sentence, int num) {
+    public boolean updateNumcheckCWord(String Word, int num) {
         try {
             openDataBase();
             ContentValues values = new ContentValues();
             values.put("Num_Check", num);
-            database.update("SENTENCE", values, "Sentence =" + '"' + Sentence + '"', null);
+            database.update("CWORD", values, "f_Word =" + '"' + Word + '"', null);
             return true;
         } catch (Exception ex) {
             Log.e("Tag", "updateNumcheckWord: " + ex.getLocalizedMessage());
