@@ -15,9 +15,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.rinnv.esd_g03.Fragment.CWordFragment;
 import com.example.rinnv.esd_g03.Fragment.TheoryFragment;
 import com.example.rinnv.esd_g03.Fragment.WordFragment;
 import com.example.rinnv.esd_g03.Models.Word;
@@ -28,14 +28,13 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import static com.example.rinnv.esd_g03.R.id.container;
-import static com.example.rinnv.esd_g03.R.id.result;
 
 public class TabActivity extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public String your_word = "";
-   public int index = 0;
+    public int index = 0;
     Word w;
     private final int SPEECH_RECOGNITION_CODE = 1001;
     private String TAG = "Tag";
@@ -66,7 +65,7 @@ public class TabActivity extends AppCompatActivity {
     public void startSpeechToText(String word, int i, Word q) {
         your_word = word;
         index = i;
-        w= q;
+        w = q;
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -76,6 +75,7 @@ public class TabActivity extends AppCompatActivity {
         startActivityForResult(intent, SPEECH_RECOGNITION_CODE);
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -87,22 +87,21 @@ public class TabActivity extends AppCompatActivity {
                 String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
 
                 // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
-                if (matches_text2[0].equals(your_word.toLowerCase())||
+                if (matches_text2[0].equals(your_word.toLowerCase()) ||
                         matches_text2[1].equals(your_word.toLowerCase())) {
-                  // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this,"dung", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "dung", Toast.LENGTH_SHORT).show();
                     WordFragment.Question q = new WordFragment.Question();
                     q.word = w;
                     q.kq = 1;
-                    WordFragment.ques.set(index,q);
+                    WordFragment.ques.set(index, q);
                     WordFragment.checkresult();
-                }
-                else {
-                    Toast.makeText(this,"sai", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "sai", Toast.LENGTH_SHORT).show();
                     WordFragment.Question q = new WordFragment.Question();
                     q.word = w;
                     q.kq = 0;
-                    WordFragment.ques.set(index,q);
+                    WordFragment.ques.set(index, q);
                     WordFragment.checkresult();
                 }
 
@@ -201,6 +200,8 @@ public class TabActivity extends AppCompatActivity {
         private HashMap<Integer, String> mFragmentTags;
         private FragmentManager fragmentManager;
         private Context context;
+        private Fragment mWordFragment;
+
 
         public SectionsPagerAdapter(FragmentManager fm, Context context) {
             super(fm);
@@ -212,14 +213,20 @@ public class TabActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-            switch (position) {
-                case 0:
-                    return new TheoryFragment().createFragment();
-                case 1:
-                    return new WordFragment().createFragment();
-                default:
-                    return new TheoryFragment().createFragment();
-            }
+            // tao fragment theo id
+            if (position == 1) {
+                if (mWordFragment == null) {
+                    mWordFragment = WordFragment.createFragment(new IWordFragmentListener() {
+                        public void onSwitchFragment() {
+                            mWordFragment = CWordFragment.createFragment();
+                            fragmentManager.beginTransaction().replace(R.id.wordFragment,mWordFragment).commit();
+                            notifyDataSetChanged();
+                        }
+                    });
+                }
+                return mWordFragment;
+            } else
+                return TheoryFragment.createFragment();
         }
 
         @Override
@@ -253,6 +260,10 @@ public class TabActivity extends AppCompatActivity {
                 return null;
             return fragmentManager.findFragmentByTag(tag);
         }
+    }
+
+    public interface IWordFragmentListener {
+        void onSwitchFragment();
     }
 
     public boolean isConnected() {

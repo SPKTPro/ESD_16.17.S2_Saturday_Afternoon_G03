@@ -1,9 +1,7 @@
 package com.example.rinnv.esd_g03.Fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +43,7 @@ public class WordFragment extends Fragment {
     public static ArrayList<Question> ques;
     private static ArrayList test;
     static int index;
+    private static TabActivity.IWordFragmentListener mWordFragmentListener;
 
     int count;
     ImageButton menu;
@@ -53,8 +52,14 @@ public class WordFragment extends Fragment {
 
     }
 
-    public Fragment createFragment() {
+    public static Fragment createFragment() {
         WordFragment wordFragment = new WordFragment();
+        return wordFragment;
+    }
+
+    public static Fragment createFragment(TabActivity.IWordFragmentListener wordFragmentListener) {
+        WordFragment wordFragment = new WordFragment();
+        mWordFragmentListener = wordFragmentListener;
         return wordFragment;
     }
 
@@ -93,7 +98,7 @@ public class WordFragment extends Fragment {
 
                     Word w = (Word) test.get(index);
 
-                   ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString(),index,w);
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString(), index, w);
 
 
                 } else {
@@ -103,13 +108,12 @@ public class WordFragment extends Fragment {
             }
         });
         test = Startgame(words, sentence);
-        ques= new ArrayList<>();
-        for(int i=0 ;i<10;i++)
-        {
+        ques = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
             Question q = new Question();
             q.word = (Word) test.get(i);
             q.kq = -1;
-            ques.add(i,q);
+            ques.add(i, q);
         }
 
         btnNextWord.setOnClickListener(new View.OnClickListener() {
@@ -162,13 +166,12 @@ public class WordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 test = Startgame(words, sentence);
-                ques= new ArrayList<>();
-                for(int i=0 ;i<10;i++)
-                {
+                ques = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
                     Question q = new Question();
                     q.word = (Word) test.get(i);
                     q.kq = -1;
-                    ques.add(i,q);
+                    ques.add(i, q);
                 }
 
             }
@@ -177,7 +180,7 @@ public class WordFragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getContext())
+               /* new AlertDialog.Builder(getContext())
                         .setTitle("Choose test:")
                         .setMessage("")
                         .setPositiveButton("Word", new DialogInterface.OnClickListener() {
@@ -194,7 +197,10 @@ public class WordFragment extends Fragment {
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                        .show();*/
+
+
+               mWordFragmentListener.onSwitchFragment();
             }
         });
         return rootView;
@@ -206,27 +212,23 @@ public class WordFragment extends Fragment {
         String wordPhonetic = word.getPhonetic();
         wordTextTV.setText(wordText);
         wordPhoneticTV.setText(wordPhonetic);
-        index= count;
+        index = count;
         checkresult();
     }
-    public static void checkresult()
-    {
-        if(ques.get(index).kq==-1) {
+
+    public static void checkresult() {
+        if (ques.get(index).kq == -1) {
             result.setVisibility(View.INVISIBLE);
             btnRecord.setVisibility(View.VISIBLE);
+        } else if (ques.get(index).kq == 1) {
+            result.setVisibility(View.VISIBLE);
+            result.setBackgroundResource(R.drawable.true2);
+            btnRecord.setVisibility(View.INVISIBLE);
+        } else {
+            result.setVisibility(View.VISIBLE);
+            result.setBackgroundResource(R.drawable.false2);
+            btnRecord.setVisibility(View.INVISIBLE);
         }
-        else
-            if(ques.get(index).kq==1) {
-                result.setVisibility(View.VISIBLE);
-                result.setBackgroundResource(R.drawable.true2);
-                btnRecord.setVisibility(View.INVISIBLE);
-            }
-            else
-            {
-                result.setVisibility(View.VISIBLE);
-                result.setBackgroundResource(R.drawable.false2);
-                btnRecord.setVisibility(View.INVISIBLE);
-            }
 
     }
 
@@ -269,7 +271,7 @@ public class WordFragment extends Fragment {
                 test.add(test1.get(i));
             }
             Word word = (Word) test.get(0);
-            index=0;
+            index = 0;
             String wordText = word.getWord();
             String wordPhonetic = word.getPhonetic();
             wordTextTV.setText(wordText);
@@ -304,8 +306,8 @@ public class WordFragment extends Fragment {
         return test;
 
     }
-    public static class Question
-    {
+
+    public static class Question {
         public Word word;
         public int kq;
     }

@@ -34,7 +34,7 @@ public class TheoryFragment extends Fragment {
     public TheoryFragment() {
     }
 
-    public Fragment createFragment() {
+    public static Fragment createFragment() {
         TheoryFragment theoryFragment = new TheoryFragment();
         return theoryFragment;
     }
