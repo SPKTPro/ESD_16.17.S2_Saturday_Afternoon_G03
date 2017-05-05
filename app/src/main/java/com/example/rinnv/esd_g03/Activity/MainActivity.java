@@ -27,8 +27,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = new SQLiteDataController(MainActivity.this.getApplicationContext());
         createDb();
+
+        ArrayList<Phonetic> phonetics = db.getListPhonetic("2");
+
+        //lay phonetic va pronounce cua phonetic thu nhat
+        Phonetic phonetic1 = phonetics.get(0);
+        String phonetic1Title = phonetic1.getPhonetic();
         Button couple1 = (Button) findViewById(R.id.button1);
         Button couple2 = (Button) findViewById(R.id.button2);
+        couple2.setText("/"+phonetic1Title+"/"+" and /u:/");
         couple1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -41,7 +41,7 @@ public class PhenoticExampleAdapter extends ArrayAdapter<Example> {
 
         if (p != null) {
             TextView tt1 = (TextView) v.findViewById(R.id.tv_pho1Ex1);
-            tt1.setText(p.getExample());
+            tt1.setText(p.getExample()+" "+p.getPhonetic());
         }
 
 
