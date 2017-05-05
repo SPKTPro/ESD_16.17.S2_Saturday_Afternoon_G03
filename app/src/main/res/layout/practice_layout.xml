@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
         android:text="TextView"
-        android:textSize="35dp"
+        android:textSize="40dp"
         android:textColor="#009966"
         android:textStyle="bold"
         android:layout_below="@+id/textView2"

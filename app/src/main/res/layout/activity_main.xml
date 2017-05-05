@@ -6,38 +6,48 @@
 
     <ImageView
         android:layout_width="280px"
-        android:layout_height="250px"
+        android:layout_height="260px"
         android:background="@drawable/logo"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginBottom="130dp">
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="130dp"
         android:text="/ɪ/ and /i:/"
         android:background="@drawable/state"
         android:textSize="18dp"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:layout_marginTop="53dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentStart="true" />
+        android:layout_weight="1"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="15dp"/>
 
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="130dp"
         android:background="@drawable/state"
         android:text="abc"
-        android:layout_marginTop="12dp"
         android:textSize="18dp"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:layout_below="@+id/button1"
-        android:layout_alignParentStart="true" />
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="15dp"
+    />
+</LinearLayout>
+
 
 </RelativeLayout>
