@@ -15,10 +15,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Fragment.TheoryFragment;
 import com.example.rinnv.esd_g03.Fragment.WordFragment;
+import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 
 import java.util.ArrayList;
@@ -26,12 +28,15 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import static com.example.rinnv.esd_g03.R.id.container;
+import static com.example.rinnv.esd_g03.R.id.result;
 
 public class TabActivity extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public String your_word = "";
+   public int index = 0;
+    Word w;
     private final int SPEECH_RECOGNITION_CODE = 1001;
     private String TAG = "Tag";
     public static int Choice = 0;
@@ -58,8 +63,10 @@ public class TabActivity extends AppCompatActivity {
         mTts.speak(word, TextToSpeech.QUEUE_FLUSH, null);
     }
 
-    public void startSpeechToText(String word) {
+    public void startSpeechToText(String word, int i, Word q) {
         your_word = word;
+        index = i;
+        w= q;
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -67,6 +74,7 @@ public class TabActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS,
                 new Long(1000));
         startActivityForResult(intent, SPEECH_RECOGNITION_CODE);
+
     }
 
     @Override
@@ -75,8 +83,32 @@ public class TabActivity extends AppCompatActivity {
 
             final ArrayList<String> matches_text = data
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches_text.size() > 0) {
+                String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
 
-            Toast.makeText(this, matches_text.toString(), Toast.LENGTH_SHORT).show();
+                // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
+                if (matches_text2[0].equals(your_word.toLowerCase())||
+                        matches_text2[1].equals(your_word.toLowerCase())) {
+                  // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"dung", Toast.LENGTH_SHORT).show();
+                    WordFragment.Question q = new WordFragment.Question();
+                    q.word = w;
+                    q.kq = 1;
+                    WordFragment.ques.set(index,q);
+                    WordFragment.checkresult();
+                }
+                else {
+                    Toast.makeText(this,"sai", Toast.LENGTH_SHORT).show();
+                    WordFragment.Question q = new WordFragment.Question();
+                    q.word = w;
+                    q.kq = 0;
+                    WordFragment.ques.set(index,q);
+                    WordFragment.checkresult();
+                }
+
+
+            }
+
         }
 
         if (requestCode == SPEECH_API_CHECK) {
