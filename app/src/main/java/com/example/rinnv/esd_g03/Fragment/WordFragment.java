@@ -43,8 +43,7 @@ public class WordFragment extends Fragment {
     public static ArrayList<Question> ques;
     private static ArrayList test;
     static int index;
-    private static TabActivity.IWordFragmentListener mWordFragmentListener;
-    int score=0;
+
     int count;
     ImageButton menu;
 
@@ -57,11 +56,6 @@ public class WordFragment extends Fragment {
         return wordFragment;
     }
 
-    public static Fragment createFragment(TabActivity.IWordFragmentListener wordFragmentListener) {
-        WordFragment wordFragment = new WordFragment();
-        mWordFragmentListener = wordFragmentListener;
-        return wordFragment;
-    }
 
 
     @Override
@@ -199,8 +193,8 @@ public class WordFragment extends Fragment {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();*/
 
+               getFragmentManager().beginTransaction().replace(R.id.wordFragment,CWordFragment.createFragment()).commit();
 
-               mWordFragmentListener.onSwitchFragment();
             }
         });
         return rootView;
@@ -248,13 +242,6 @@ public class WordFragment extends Fragment {
 
     public void EndGame() {
         result.setVisibility(View.INVISIBLE);
-        for(int i=0;i<10;i++)
-        {
-            if(ques.get(i).kq==1)
-                score++;
-        }
-        wordTextTV.setText(score+"/10");
-        wordTextTV.setTextSize(60);
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
         btnSpeaker.setVisibility(View.INVISIBLE);
@@ -265,7 +252,6 @@ public class WordFragment extends Fragment {
 
     public ArrayList Startgame(ArrayList<Word> words, ArrayList<Sentence> sentence) {
         count = 0;
-        score=0;
         test = new ArrayList();
         if (type == 1) {
             List<Word> test1 = new ArrayList<Word>();
@@ -302,7 +288,6 @@ public class WordFragment extends Fragment {
             wordPhoneticTV.setText(wordPhonetic);
 
         }
-        wordTextTV.setTextSize(40);
         replay.setVisibility(View.INVISIBLE);
         result.setVisibility(View.INVISIBLE);
         btnNextWord.setVisibility(View.VISIBLE);

@@ -1,10 +1,8 @@
 package com.example.rinnv.esd_g03.Fragment;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -179,7 +177,7 @@ public class CWordFragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(container.getContext())
+                /*new AlertDialog.Builder(container.getContext())
                         .setTitle("Choose test:")
                         .setMessage("")
                         .setPositiveButton("Word", new DialogInterface.OnClickListener() {
@@ -196,7 +194,9 @@ public class CWordFragment extends Fragment {
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                        .show();*/
+                getFragmentManager().beginTransaction().replace(R.id.wordFragment,WordFragment.createFragment()).commit();
+
             }
         });
 
