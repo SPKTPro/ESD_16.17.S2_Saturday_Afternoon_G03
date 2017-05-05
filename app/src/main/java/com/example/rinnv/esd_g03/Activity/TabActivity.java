@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.rinnv.esd_g03.Fragment.CWordFragment;
 import com.example.rinnv.esd_g03.Fragment.TheoryFragment;
 import com.example.rinnv.esd_g03.Fragment.WordFragment;
 import com.example.rinnv.esd_g03.Models.Word;
@@ -212,21 +211,15 @@ public class TabActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new TheoryFragment().createFragment();
+                case 1:
+                    return new WordFragment().createFragment();
+                default:
+                    return new TheoryFragment().createFragment();
+            }
 
-            // tao fragment theo id
-            if (position == 1) {
-                if (mWordFragment == null) {
-                    mWordFragment = WordFragment.createFragment(new IWordFragmentListener() {
-                        public void onSwitchFragment() {
-                            mWordFragment = CWordFragment.createFragment();
-                            fragmentManager.beginTransaction().replace(R.id.wordFragment,mWordFragment).commit();
-                            notifyDataSetChanged();
-                        }
-                    });
-                }
-                return mWordFragment;
-            } else
-                return TheoryFragment.createFragment();
         }
 
         @Override
@@ -262,9 +255,6 @@ public class TabActivity extends AppCompatActivity {
         }
     }
 
-    public interface IWordFragmentListener {
-        void onSwitchFragment();
-    }
 
     public boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

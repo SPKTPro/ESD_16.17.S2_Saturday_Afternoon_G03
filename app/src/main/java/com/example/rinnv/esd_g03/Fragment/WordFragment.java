@@ -43,7 +43,6 @@ public class WordFragment extends Fragment {
     public static ArrayList<Question> ques;
     private static ArrayList test;
     static int index;
-    private static TabActivity.IWordFragmentListener mWordFragmentListener;
 
     int count;
     ImageButton menu;
@@ -57,11 +56,6 @@ public class WordFragment extends Fragment {
         return wordFragment;
     }
 
-    public static Fragment createFragment(TabActivity.IWordFragmentListener wordFragmentListener) {
-        WordFragment wordFragment = new WordFragment();
-        mWordFragmentListener = wordFragmentListener;
-        return wordFragment;
-    }
 
 
     @Override
@@ -199,8 +193,8 @@ public class WordFragment extends Fragment {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();*/
 
+               getFragmentManager().beginTransaction().replace(R.id.wordFragment,CWordFragment.createFragment()).commit();
 
-               mWordFragmentListener.onSwitchFragment();
             }
         });
         return rootView;
