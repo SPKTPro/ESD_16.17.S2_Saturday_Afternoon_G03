@@ -215,28 +215,25 @@ public class CWordFragment extends Fragment {
 
     public static void checkresult() {
         if (ques.get(index).kq1 == -1) {
-            //result.setVisibility(View.INVISIBLE);
-            btnRecord1.setVisibility(View.VISIBLE);
+            btnRecord1.setBackgroundResource(R.drawable.record2);
+            btnRecord1.setClickable(true);
         } else if (ques.get(index).kq1 == 1) {
-          //  result.setVisibility(View.VISIBLE);
-          //  result.setBackgroundResource(R.drawable.true2);
-            btnRecord1.setVisibility(View.INVISIBLE);
+            btnRecord1.setBackgroundResource(R.drawable.true2);
+           // btnRecord1.setClickable(false);
         } else {
-          //  result.setVisibility(View.VISIBLE);
-          //  result.setBackgroundResource(R.drawable.false2);
-            btnRecord1.setVisibility(View.INVISIBLE);
+            btnRecord1.setBackgroundResource(R.drawable.false2);
+          //  btnRecord1.setClickable(false);
         }
+
         if (ques.get(index).kq2 == -1) {
-          //  result.setVisibility(View.INVISIBLE);
-            btnRecord2.setVisibility(View.VISIBLE);
+            btnRecord2.setBackgroundResource(R.drawable.record2);
+            btnRecord2.setClickable(true);
         } else if (ques.get(index).kq2 == 1) {
-          //  result.setVisibility(View.VISIBLE);
-          //  result.setBackgroundResource(R.drawable.true2);
-            btnRecord2.setVisibility(View.INVISIBLE);
+            btnRecord2.setBackgroundResource(R.drawable.true2);
+           // btnRecord2.setClickable(false);
         } else {
-           // result.setVisibility(View.VISIBLE);
-          //  result.setBackgroundResource(R.drawable.false2);
-            btnRecord2.setVisibility(View.INVISIBLE);
+            btnRecord2.setBackgroundResource(R.drawable.false2);
+           // btnRecord2.setClickable(false);
         }
 
     }
@@ -247,6 +244,7 @@ public class CWordFragment extends Fragment {
             ques.get(i).kq=1;
              result.setVisibility(View.VISIBLE);
              result.setBackgroundResource(R.drawable.true2);
+
         }
         else
             if((ques.get(i).kq1==1&&ques.get(i).kq2==0)||(ques.get(i).kq1==0&&ques.get(i).kq2==1)||(ques.get(i).kq1==0&&ques.get(i).kq2==0))
@@ -305,7 +303,8 @@ public class CWordFragment extends Fragment {
         wordPhoneticTV2.setText(wordPhonetic);
 
         wordScore.setVisibility(View.INVISIBLE);
-
+        wordTextTV1.setVisibility(View.VISIBLE);
+        wordTextTV2.setVisibility(View.VISIBLE);
         replay.setVisibility(View.INVISIBLE);
         result.setVisibility(View.INVISIBLE);
         wordPhoneticTV1.setVisibility(View.VISIBLE);
@@ -316,9 +315,12 @@ public class CWordFragment extends Fragment {
         btnPreWord.setVisibility(View.INVISIBLE);
         btnSpeaker1.setVisibility(View.VISIBLE);
         btnRecord1.setVisibility(View.VISIBLE);
+        btnRecord1.setBackgroundResource(R.drawable.record2);
+        btnRecord1.setClickable(true);
         btnSpeaker2.setVisibility(View.VISIBLE);
         btnRecord2.setVisibility(View.VISIBLE);
-
+        btnRecord2.setBackgroundResource(R.drawable.record2);
+        btnRecord2.setClickable(true);
         return test;
 
     }

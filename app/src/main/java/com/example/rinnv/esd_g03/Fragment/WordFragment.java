@@ -42,6 +42,7 @@ public class WordFragment extends Fragment {
     private static ArrayList test;
     static int index;
     int score=0;
+    static SQLiteDataController db;
 
     int count;
     ImageButton menu;
@@ -60,7 +61,7 @@ public class WordFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.practice_layout, container, false);
-        SQLiteDataController db = new SQLiteDataController(container.getContext());
+        db = new SQLiteDataController(container.getContext());
         pheonicGrId = Config.PHEONIC_GROUP_ID;
 
         words = db.getWordByPhoneticGrID(pheonicGrId);
@@ -201,14 +202,21 @@ public class WordFragment extends Fragment {
         if (ques.get(index).kq == -1) {
             result.setVisibility(View.INVISIBLE);
             btnRecord.setVisibility(View.VISIBLE);
-        } else if (ques.get(index).kq == 1) {
+        } else
+            if (ques.get(index).kq == 1) {
             result.setVisibility(View.VISIBLE);
             result.setBackgroundResource(R.drawable.true2);
             btnRecord.setVisibility(View.INVISIBLE);
+            Word w = (Word) test.get(index);
+            if(w.getNum_Check()<=2 && w.getNum_Check()>0)
+                db.updateNumcheckWord(w.getWord(),w.getNum_Check()-1);
+            Log.d("Tag", "List: z"+w.getWord()+w.getNum_Check());
         } else {
             result.setVisibility(View.VISIBLE);
             result.setBackgroundResource(R.drawable.false2);
             btnRecord.setVisibility(View.INVISIBLE);
+            Word w = (Word) test.get(index);
+            db.updateNumcheckWord(w.getWord(),2);
         }
 
     }
@@ -233,18 +241,40 @@ public class WordFragment extends Fragment {
 
     public ArrayList Startgame(ArrayList<Word> words) {
         count = 0;
-        test = new ArrayList();
+        test = new ArrayList<Word>();
 
+        if(Boolean_Random())
+        {
             List<Word> test1 = new ArrayList<Word>();
             for (int i = 0; i < words.size(); i++) {
                 test1.add(words.get(i));
             }
             Collections.shuffle(test1);
             Collections.shuffle(test1);
-            test = new ArrayList<Word>();
             for (int i = 0; i < 10; i++) {
                 test.add(test1.get(i));
             }
+            Log.d("Tag","Boolean_Random true");
+        }
+        else
+        {
+            Log.d("Tag","Boolean_Random false");
+            ArrayList<Word> temp;
+            temp =getListWord();
+            for(int i=0;i<temp.size();i++)
+                test.add(temp.get(i));
+            List<Word> test1 = new ArrayList<Word>();
+            for (int i = 0; i < words.size(); i++) {
+                test1.add(words.get(i));
+            }
+            Collections.shuffle(test1);
+            while (test.size()<10)
+            {
+                test.add(test1.get(5));
+                Collections.shuffle(test1);
+            }
+        }
+
             Word word = (Word) test.get(0);
             index = 0;
             String wordText = word.getWord();
@@ -265,7 +295,32 @@ public class WordFragment extends Fragment {
         return test;
 
     }
+    public Boolean Boolean_Random()
+    {
+        words = db.getWordByPhoneticGrID(pheonicGrId);
+        for (int i=0;i<words.size();i++)
+        {
+            if(words.get(i).getNum_Check()!=0)
+                return false;
+        }
+        return true;
+    }
+    public ArrayList getListWord()
+    {
 
+        ArrayList<Word> list = new ArrayList<Word>();
+
+        for (int i=0;i<words.size();i++)
+        {
+            if(words.get(i).getNum_Check()!=0) {
+                list.add(words.get(i));
+                Log.d("Tag", "List: " + words.get(i).getWord()+" "+words.get(i).getNum_Check());
+            }
+        }
+
+        return list;
+
+    }
     public static class Question {
         public Word word;
         public int kq;
