@@ -164,9 +164,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="10dp"
         android:textColor="#339966"
-        android:textSize="18dp"
+        android:textSize="50dp"
         android:layout_below="@+id/wordText"
         android:layout_centerHorizontal="true"
         android:visibility="invisible"/>

@@ -13,6 +13,17 @@
       <gradient android:startColor="#FF66CFE6" android:centerColor="#FF207FB9"
     android:endColor="#FF0060B8" android:angle="270"/>
 -->
+    <stroke
+        android:width="5dp"
+        android:color="#110947" />
+
+    <padding
+        android:bottom="3dp"
+        android:left="3dp"
+        android:right="3dp"
+        android:top="3dp" />
+
+    <corners android:radius="7dp" />
 
 
 </shape>

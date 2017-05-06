@@ -210,7 +210,7 @@ public class WordFragment extends Fragment {
             Word w = (Word) test.get(index);
             if(w.getNum_Check()<=2 && w.getNum_Check()>0)
                 db.updateNumcheckWord(w.getWord(),w.getNum_Check()-1);
-            Log.d("Tag", "List: z"+w.getWord()+w.getNum_Check());
+          //  Log.d("Tag", "List: z"+w.getWord()+w.getNum_Check());
         } else {
             result.setVisibility(View.VISIBLE);
             result.setBackgroundResource(R.drawable.false2);
@@ -254,11 +254,11 @@ public class WordFragment extends Fragment {
             for (int i = 0; i < 10; i++) {
                 test.add(test1.get(i));
             }
-            Log.d("Tag","Boolean_Random true");
+          //  Log.d("Tag","Boolean_Random true");
         }
         else
         {
-            Log.d("Tag","Boolean_Random false");
+          //  Log.d("Tag","Boolean_Random false");
             ArrayList<Word> temp;
             temp =getListWord();
             for(int i=0;i<temp.size();i++)
@@ -314,7 +314,7 @@ public class WordFragment extends Fragment {
         {
             if(words.get(i).getNum_Check()!=0) {
                 list.add(words.get(i));
-                Log.d("Tag", "List: " + words.get(i).getWord()+" "+words.get(i).getNum_Check());
+           //     Log.d("Tag", "List: " + words.get(i).getWord()+" "+words.get(i).getNum_Check());
             }
         }
 

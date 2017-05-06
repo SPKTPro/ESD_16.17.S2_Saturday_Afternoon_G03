@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Activity.TabActivity;
 import com.example.rinnv.esd_g03.Models.CWord;
+import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
@@ -29,6 +30,7 @@ public class CWordFragment extends Fragment {
 
     TextView wordTextTV1;
     TextView wordScore;
+    TextView wordScore2;
     TextView wordPhoneticTV1;
     TextView wordTextTV2;
     TextView wordPhoneticTV2;
@@ -49,7 +51,8 @@ public class CWordFragment extends Fragment {
     static int index;
     int count;
     ImageButton menu;
-
+    int score1=0, score2=0;
+    static SQLiteDataController db;
     public CWordFragment() {
 
     }
@@ -63,13 +66,14 @@ public class CWordFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.practice_layout2, container, false);
-        SQLiteDataController db = new SQLiteDataController(container.getContext());
+        db = new SQLiteDataController(container.getContext());
         pheonicGrId = Config.PHEONIC_GROUP_ID;
         Log.d(TAG, "onCreateView: new fragment");
 
         words = db.getListCWord(pheonicGrId);
 
         wordScore = (TextView) rootView.findViewById(R.id.wordText);
+        wordScore2 = (TextView) rootView.findViewById(R.id.wordPhonetic);
         wordTextTV1 = (TextView) rootView.findViewById(R.id.fword);
         wordPhoneticTV1 = (TextView) rootView.findViewById(R.id.fpho);
         wordTextTV2 = (TextView) rootView.findViewById(R.id.sword);
@@ -147,7 +151,7 @@ public class CWordFragment extends Fragment {
 
                 } else {
                     wordScore.setVisibility(View.VISIBLE);
-                    wordScore.setText("5/10");
+                    wordScore2.setVisibility(View.VISIBLE);
                     EndGame();
 
                 }
@@ -244,7 +248,9 @@ public class CWordFragment extends Fragment {
             ques.get(i).kq=1;
              result.setVisibility(View.VISIBLE);
              result.setBackgroundResource(R.drawable.true2);
-
+            CWord w = (CWord) test.get(index);
+            if(w.getNum_Check()<=2 && w.getNum_Check()>0)
+                db.updateNumcheckCWord(w.getfWord(),w.getNum_Check()-1);
         }
         else
             if((ques.get(i).kq1==1&&ques.get(i).kq2==0)||(ques.get(i).kq1==0&&ques.get(i).kq2==1)||(ques.get(i).kq1==0&&ques.get(i).kq2==0))
@@ -252,6 +258,9 @@ public class CWordFragment extends Fragment {
             ques.get(i).kq=0;
             result.setVisibility(View.VISIBLE);
             result.setBackgroundResource(R.drawable.false2);
+            CWord w = (CWord) test.get(index);
+            db.updateNumcheckCWord(w.getfWord(),2);
+
         }
         else
                 result.setVisibility(View.INVISIBLE);
@@ -261,6 +270,17 @@ public class CWordFragment extends Fragment {
 
     public void EndGame() {
         result.setVisibility(View.INVISIBLE);
+        for(int i=0;i<10;i++)
+        {
+            if(ques.get(i).kq==1)
+                score1++;
+            if(ques.get(i).kq1==1)
+                score2++;
+            if(ques.get(i).kq2==1)
+                score2++;
+        }
+        wordScore.setText(score1+"/10");
+        wordScore2.setText(score2+"/20");
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
         btnSpeaker1.setVisibility(View.INVISIBLE);
@@ -276,9 +296,11 @@ public class CWordFragment extends Fragment {
 
     public ArrayList Startgame(ArrayList<CWord> words) {
         count = 0;
-        test = new ArrayList();
+        score1=0;
+        score2=0;
+        test = new ArrayList<CWord>();
 
-        List<CWord> test1 = new ArrayList<CWord>();
+      /*  List<CWord> test1 = new ArrayList<CWord>();
         for (int i = 0; i < words.size(); i++) {
             CWord w = words.get(i);
             Log.d(TAG, "Startgame: tittle" + w.getfWord());
@@ -290,7 +312,39 @@ public class CWordFragment extends Fragment {
         test = new ArrayList<CWord>();
         for (int i = 0; i < 10; i++) {
             test.add(test1.get(i));
+        }*/
+        if(Boolean_Random())
+        {
+            List<CWord> test1 = new ArrayList<CWord>();
+            for (int i = 0; i < words.size(); i++) {
+                test1.add(words.get(i));
+            }
+            Collections.shuffle(test1);
+            Collections.shuffle(test1);
+            for (int i = 0; i < 10; i++) {
+                test.add(test1.get(i));
+            }
+            Log.d("Tag","Boolean_Random true");
         }
+        else
+        {
+            Log.d("Tag","Boolean_Random false");
+            ArrayList<CWord> temp;
+            temp =getListWord();
+            for(int i=0;i<temp.size();i++)
+                test.add(temp.get(i));
+            List<CWord> test1 = new ArrayList<CWord>();
+            for (int i = 0; i < words.size(); i++) {
+                test1.add(words.get(i));
+            }
+            Collections.shuffle(test1);
+            while (test.size()<10)
+            {
+                test.add(test1.get(5));
+                Collections.shuffle(test1);
+            }
+        }
+
         CWord word = (CWord) test.get(0);
         index = 0;
         String wordText = word.getfWord();
@@ -303,6 +357,7 @@ public class CWordFragment extends Fragment {
         wordPhoneticTV2.setText(wordPhonetic);
 
         wordScore.setVisibility(View.INVISIBLE);
+        wordScore2.setVisibility(View.INVISIBLE);
         wordTextTV1.setVisibility(View.VISIBLE);
         wordTextTV2.setVisibility(View.VISIBLE);
         replay.setVisibility(View.INVISIBLE);
@@ -324,7 +379,32 @@ public class CWordFragment extends Fragment {
         return test;
 
     }
+    public Boolean Boolean_Random()
+    {
+        words = db.getListCWord(pheonicGrId);
+        for (int i=0;i<words.size();i++)
+        {
+            if(words.get(i).getNum_Check()!=0)
+                return false;
+        }
+        return true;
+    }
+    public ArrayList getListWord()
+    {
 
+        ArrayList<CWord> list = new ArrayList<CWord>();
+
+        for (int i=0;i<words.size();i++)
+        {
+            if(words.get(i).getNum_Check()!=0) {
+                list.add(words.get(i));
+                Log.d("Tag", "List: " + words.get(i).getfWord()+" "+words.get(i).getNum_Check());
+            }
+        }
+
+        return list;
+
+    }
     public static class Question {
         public CWord word;
         public int kq1;
