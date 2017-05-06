@@ -105,9 +105,9 @@ public class CWordFragment extends Fragment {
 
                 if (((TabActivity) container.getContext()).isConnected()) {
 
-                    Word w = (Word) test.get(index);
+                    CWord w = (CWord) test.get(index);
 
-                   ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(),index,w);
+                 //  ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(),index,w);
 
 
                 } else {
