@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.rinnv.esd_g03.Fragment.CWordFragment;
 import com.example.rinnv.esd_g03.Fragment.TheoryFragment;
 import com.example.rinnv.esd_g03.Fragment.WordFragment;
 import com.example.rinnv.esd_g03.Models.CWord;
@@ -37,6 +38,8 @@ public class TabActivity extends AppCompatActivity {
     public int index = 0;
     Word w;
     CWord cWord;
+    int type=1;
+    int type2=0;
     private final int SPEECH_RECOGNITION_CODE = 1001;
     private String TAG = "Tag";
     public static int Choice = 0;
@@ -63,11 +66,13 @@ public class TabActivity extends AppCompatActivity {
         mTts.speak(word, TextToSpeech.QUEUE_FLUSH, null);
     }
 
-    public void startSpeechToText(String word, int i, Word q, CWord cq) {
+    public void startSpeechToText(String word, int i, Word q, CWord cq,int t, int t2) {
         your_word = word;
         index = i;
         w = q;
         cWord = cq;
+        type= t;
+        type2= t2;
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -85,30 +90,59 @@ public class TabActivity extends AppCompatActivity {
 
             final ArrayList<String> matches_text = data
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (matches_text.size() > 0) {
-                String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
-
-                // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
-                if (matches_text2[0].equals(your_word.toLowerCase()) ||
-                        matches_text2[1].equals(your_word.toLowerCase())) {
-                    // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, "dung", Toast.LENGTH_SHORT).show();
-                    WordFragment.Question q = new WordFragment.Question();
-                    q.word = w;
-                    q.kq = 1;
-                    WordFragment.ques.set(index, q);
-                    WordFragment.checkresult();
-                } else {
-                    Toast.makeText(this, "sai", Toast.LENGTH_SHORT).show();
-                    WordFragment.Question q = new WordFragment.Question();
-                    q.word = w;
-                    q.kq = 0;
-                    WordFragment.ques.set(index, q);
-                    WordFragment.checkresult();
+            if(type==1)
+            {
+                if (matches_text.size() > 0) {
+                    String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
+                    // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
+                    if (matches_text2[0].equals(your_word.toLowerCase()) ||
+                            matches_text2[1].equals(your_word.toLowerCase())) {
+                        // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "dung", Toast.LENGTH_SHORT).show();
+                        WordFragment.Question q = new WordFragment.Question();
+                        q.word = w;
+                        q.kq = 1;
+                        WordFragment.ques.set(index, q);
+                        WordFragment.checkresult();
+                    } else {
+                        Toast.makeText(this, "sai", Toast.LENGTH_SHORT).show();
+                        WordFragment.Question q = new WordFragment.Question();
+                        q.word = w;
+                        q.kq = 0;
+                        WordFragment.ques.set(index, q);
+                        WordFragment.checkresult();
+                    }
                 }
-
-
             }
+            else
+            {
+                if (matches_text.size() > 0) {
+                    String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
+                    // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
+                    if (matches_text2[0].equals(your_word.toLowerCase()) ||
+                            matches_text2[1].equals(your_word.toLowerCase())) {
+                        // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "dung "+matches_text2[0]+" "+matches_text2[1], Toast.LENGTH_SHORT).show();
+                        if(type2==1)
+                            CWordFragment.ques.get(index).kq1=1;
+                        else
+                            if(type2==2)
+                                CWordFragment.ques.get(index).kq2=1;
+                        CWordFragment.checkresult();
+                        CWordFragment.checkresult2(index);
+                    } else {
+                        Toast.makeText(this, "sai"+matches_text2[0]+" "+matches_text2[1], Toast.LENGTH_SHORT).show();
+                        if(type2==1)
+                            CWordFragment.ques.get(index).kq1=0;
+                        else
+                        if(type2==2)
+                            CWordFragment.ques.get(index).kq2=0;
+                        CWordFragment.checkresult();
+                        CWordFragment.checkresult2(index);
+                    }
+                }
+            }
+
 
         }
 

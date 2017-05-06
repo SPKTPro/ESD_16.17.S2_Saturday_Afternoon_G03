@@ -89,7 +89,7 @@ public class WordFragment extends Fragment {
 
                     Word w = (Word) test.get(index);
 
-                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString(), index, w,null);
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString(), index, w,null,1,0);
 
 
                 } else {

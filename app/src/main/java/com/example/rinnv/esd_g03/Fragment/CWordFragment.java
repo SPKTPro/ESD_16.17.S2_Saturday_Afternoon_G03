@@ -103,7 +103,7 @@ public class CWordFragment extends Fragment {
 
                 if (((TabActivity) container.getContext()).isConnected()) {
                     CWord w = (CWord) test.get(index);
-                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(), index, null, w);
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(), index, null, w,2,1);
                 } else {
                     Toast.makeText(container.getContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
                 }
@@ -114,7 +114,7 @@ public class CWordFragment extends Fragment {
             public void onClick(View v) {
                 if (((TabActivity) container.getContext()).isConnected()) {
                     CWord cWord = (CWord) test.get(index);
-                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV2.getText().toString(), index, null, cWord);
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV2.getText().toString(), index, null, cWord,2,2);
                 } else {
                     Toast.makeText(container.getContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
                 }
@@ -160,7 +160,6 @@ public class CWordFragment extends Fragment {
                 count = count - 1;
                 if (count > 0) {
                     btnPreWord.setVisibility(View.VISIBLE);
-
                     setWord(count);
 
                 } else {
@@ -211,33 +210,53 @@ public class CWordFragment extends Fragment {
         wordPhoneticTV2.setText(wordPhonetic);
         index = count;
         checkresult();
+        checkresult2(index);
     }
 
     public static void checkresult() {
         if (ques.get(index).kq1 == -1) {
-            result.setVisibility(View.INVISIBLE);
+            //result.setVisibility(View.INVISIBLE);
             btnRecord1.setVisibility(View.VISIBLE);
         } else if (ques.get(index).kq1 == 1) {
-            result.setVisibility(View.VISIBLE);
-            result.setBackgroundResource(R.drawable.true2);
+          //  result.setVisibility(View.VISIBLE);
+          //  result.setBackgroundResource(R.drawable.true2);
             btnRecord1.setVisibility(View.INVISIBLE);
         } else {
-            result.setVisibility(View.VISIBLE);
-            result.setBackgroundResource(R.drawable.false2);
+          //  result.setVisibility(View.VISIBLE);
+          //  result.setBackgroundResource(R.drawable.false2);
             btnRecord1.setVisibility(View.INVISIBLE);
         }
         if (ques.get(index).kq2 == -1) {
-            result.setVisibility(View.INVISIBLE);
+          //  result.setVisibility(View.INVISIBLE);
             btnRecord2.setVisibility(View.VISIBLE);
         } else if (ques.get(index).kq2 == 1) {
-            result.setVisibility(View.VISIBLE);
-            result.setBackgroundResource(R.drawable.true2);
+          //  result.setVisibility(View.VISIBLE);
+          //  result.setBackgroundResource(R.drawable.true2);
             btnRecord2.setVisibility(View.INVISIBLE);
         } else {
-            result.setVisibility(View.VISIBLE);
-            result.setBackgroundResource(R.drawable.false2);
+           // result.setVisibility(View.VISIBLE);
+          //  result.setBackgroundResource(R.drawable.false2);
             btnRecord2.setVisibility(View.INVISIBLE);
         }
+
+    }
+    public static void checkresult2(int i)
+    {
+        if (ques.get(i).kq1==1&&ques.get(i).kq2==1)
+        {
+            ques.get(i).kq=1;
+             result.setVisibility(View.VISIBLE);
+             result.setBackgroundResource(R.drawable.true2);
+        }
+        else
+            if((ques.get(i).kq1==1&&ques.get(i).kq2==0)||(ques.get(i).kq1==0&&ques.get(i).kq2==1)||(ques.get(i).kq1==0&&ques.get(i).kq2==0))
+        {
+            ques.get(i).kq=0;
+            result.setVisibility(View.VISIBLE);
+            result.setBackgroundResource(R.drawable.false2);
+        }
+        else
+                result.setVisibility(View.INVISIBLE);
 
     }
 
@@ -252,6 +271,8 @@ public class CWordFragment extends Fragment {
         btnRecord2.setVisibility(View.INVISIBLE);
         wordPhoneticTV1.setVisibility(View.INVISIBLE);
         wordPhoneticTV2.setVisibility(View.INVISIBLE);
+        wordTextTV1.setVisibility(View.INVISIBLE);
+        wordTextTV2.setVisibility(View.INVISIBLE);
         replay.setVisibility(View.VISIBLE);
     }
 
