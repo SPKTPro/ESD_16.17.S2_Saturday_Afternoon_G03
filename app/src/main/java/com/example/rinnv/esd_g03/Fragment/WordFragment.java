@@ -39,7 +39,6 @@ public class WordFragment extends Fragment {
     private String TAG = "Tag";
     private static int type = 1;
     ArrayList<Word> words;
-    ArrayList<Sentence> sentence;
     public static ArrayList<Question> ques;
     private static ArrayList test;
     static int index;
@@ -66,8 +65,6 @@ public class WordFragment extends Fragment {
         pheonicGrId = Config.PHEONIC_GROUP_ID;
 
         words = db.getWordByPhoneticGrID(pheonicGrId);
-        sentence = db.getSentenceByPhoneticGrID(pheonicGrId);
-
 
         wordTextTV = (TextView) rootView.findViewById(R.id.wordText);
         wordPhoneticTV = (TextView) rootView.findViewById(R.id.wordPhonetic);
@@ -102,7 +99,7 @@ public class WordFragment extends Fragment {
 
             }
         });
-        test = Startgame(words, sentence);
+        test = Startgame(words);
         ques = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Question q = new Question();
@@ -122,11 +119,8 @@ public class WordFragment extends Fragment {
                 }
                 if (count < 9) {
                     count = count + 1;
-                    if (type == 1) {
-                        setWord(count);
-                    } else {
-                        setSentence(count);
-                    }
+                   setWord(count);
+
                 } else {
                     wordTextTV.setText("5/10");
                     EndGame();
@@ -141,17 +135,10 @@ public class WordFragment extends Fragment {
                 count = count - 1;
                 if (count > 0) {
                     btnPreWord.setVisibility(View.VISIBLE);
-                    if (type == 1) {
-                        setWord(count);
-                    } else {
-                        setSentence(count);
-                    }
+                    setWord(count);
+
                 } else {
-                    if (type == 1) {
-                        setWord(0);
-                    } else {
-                        setSentence(0);
-                    }
+                    setWord(0);
                     btnPreWord.setVisibility(View.INVISIBLE);
                 }
 
@@ -160,7 +147,7 @@ public class WordFragment extends Fragment {
         replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                test = Startgame(words, sentence);
+                test = Startgame(words);
                 ques = new ArrayList<>();
                 for (int i = 0; i < 10; i++) {
                     Question q = new Question();
@@ -227,19 +214,6 @@ public class WordFragment extends Fragment {
 
     }
 
-    public void setSentence(int count) {
-        try {
-            Sentence word = (Sentence) test.get(count);
-            String wordText = word.getSentence();
-            String wordPhonetic = word.getPhonetic_Word1();
-            wordTextTV.setText(wordText);
-            wordPhoneticTV.setText(wordPhonetic);
-            Log.d(TAG, "setSentence: " + wordText);
-
-        } catch (Exception ex) {
-            Log.d("Tag", "setSentence: " + ex.getLocalizedMessage());
-        }
-    }
 
     public void EndGame() {
         result.setVisibility(View.INVISIBLE);
@@ -258,10 +232,10 @@ public class WordFragment extends Fragment {
         replay.setVisibility(View.VISIBLE);
     }
 
-    public ArrayList Startgame(ArrayList<Word> words, ArrayList<Sentence> sentence) {
+    public ArrayList Startgame(ArrayList<Word> words) {
         count = 0;
         test = new ArrayList();
-        if (type == 1) {
+
             List<Word> test1 = new ArrayList<Word>();
             for (int i = 0; i < words.size(); i++) {
                 test1.add(words.get(i));
@@ -278,24 +252,7 @@ public class WordFragment extends Fragment {
             String wordPhonetic = word.getPhonetic();
             wordTextTV.setText(wordText);
             wordPhoneticTV.setText(wordPhonetic);
-        } else {
-            List<Sentence> test1 = new ArrayList<Sentence>();
-            for (int i = 0; i < sentence.size(); i++) {
-                test1.add(sentence.get(i));
-            }
-            Collections.shuffle(test1);
-            Collections.shuffle(test1);
-            test = new ArrayList<Sentence>();
-            for (int i = 0; i < 10; i++) {
-                test.add(test1.get(i));
-            }
-            Sentence word = (Sentence) test.get(0);
-            String wordText = word.getSentence();
-            String wordPhonetic = word.getPhonetic_Word1();
-            wordTextTV.setText(wordText);
-            wordPhoneticTV.setText(wordPhonetic);
 
-        }
         wordTextTV.setTextSize(40);
         replay.setVisibility(View.INVISIBLE);
         result.setVisibility(View.INVISIBLE);

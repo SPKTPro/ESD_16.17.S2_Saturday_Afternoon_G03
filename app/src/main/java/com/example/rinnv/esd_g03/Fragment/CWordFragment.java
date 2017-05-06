@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Activity.TabActivity;
+import com.example.rinnv.esd_g03.Models.CWord;
 import com.example.rinnv.esd_g03.Models.Sentence;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
@@ -27,24 +28,27 @@ import java.util.List;
  */
 
 public class CWordFragment extends Fragment {
-    TextView textView;
-    TextView wordTextTV;
-    TextView wordPhoneticTV;
+
+    TextView wordTextTV1;
+    TextView wordScore;
+    TextView wordPhoneticTV1;
+    TextView wordTextTV2;
+    TextView wordPhoneticTV2;
     ImageButton btnNextWord;
     ImageButton btnPreWord;
-    static ImageButton btnRecord;
-    ImageButton btnSpeaker;
+    static ImageButton btnRecord1;
+    ImageButton btnSpeaker1;
+    static ImageButton btnRecord2;
+    ImageButton btnSpeaker2;
     static ImageButton result;
     ImageButton replay;
     String pheonicGrId;
     private String TAG = "Tag";
     private static int type = 1;
-    ArrayList<Word> words;
-    ArrayList<Sentence> sentence;
+    ArrayList<CWord> words;
     public static ArrayList<Question> ques;
     private static ArrayList test;
     static int index;
-
     int count;
     ImageButton menu;
 
@@ -65,27 +69,37 @@ public class CWordFragment extends Fragment {
         pheonicGrId = Config.PHEONIC_GROUP_ID;
         Log.d(TAG, "onCreateView: new fragment");
         
-        words = db.getWordByPhoneticGrID(pheonicGrId);
-        sentence = db.getSentenceByPhoneticGrID(pheonicGrId);
+        words = db.getListCWord(pheonicGrId);
 
-
-        wordTextTV = (TextView) rootView.findViewById(R.id.wordText);
-        wordPhoneticTV = (TextView) rootView.findViewById(R.id.wordPhonetic);
+        wordScore= (TextView) rootView.findViewById(R.id.wordText);
+        wordTextTV1 = (TextView) rootView.findViewById(R.id.fword);
+        wordPhoneticTV1 = (TextView) rootView.findViewById(R.id.fpho);
+        wordTextTV2 = (TextView) rootView.findViewById(R.id.sword);
+        wordPhoneticTV2 = (TextView) rootView.findViewById(R.id.spho);
         result = (ImageButton) rootView.findViewById(R.id.result);
         btnNextWord = (ImageButton) rootView.findViewById(R.id.btnnext);
         btnPreWord = (ImageButton) rootView.findViewById(R.id.btnprevious);
         replay = (ImageButton) rootView.findViewById(R.id.btnreplay);
-        btnSpeaker = (ImageButton) rootView.findViewById(R.id.btnspeaker);
-        btnRecord = (ImageButton) rootView.findViewById(R.id.btnrecord);
+        btnSpeaker1 = (ImageButton) rootView.findViewById(R.id.speaker1);
+        btnRecord1 = (ImageButton) rootView.findViewById(R.id.record1);
+        btnSpeaker2 = (ImageButton) rootView.findViewById(R.id.speaker2);
+        btnRecord2 = (ImageButton) rootView.findViewById(R.id.record2);
 
-        btnSpeaker.setOnClickListener(new View.OnClickListener() {
+        btnSpeaker1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((TabActivity) container.getContext()).startTextToSpeech(wordTextTV.getText().toString());
+                ((TabActivity) container.getContext()).startTextToSpeech(wordTextTV1.getText().toString());
 
             }
         });
-        btnRecord.setOnClickListener(new View.OnClickListener() {
+        btnSpeaker2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((TabActivity) container.getContext()).startTextToSpeech(wordTextTV2.getText().toString());
+
+            }
+        });
+        btnRecord1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -93,7 +107,7 @@ public class CWordFragment extends Fragment {
 
                     Word w = (Word) test.get(index);
 
-                   ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString(),index,w);
+                   ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(),index,w);
 
 
                 } else {
@@ -102,13 +116,32 @@ public class CWordFragment extends Fragment {
 
             }
         });
-        test = Startgame(words, sentence);
+        btnRecord2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (((TabActivity) container.getContext()).isConnected()) {
+
+                    Word w = (Word) test.get(index);
+
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV2.getText().toString(),index,w);
+
+
+                } else {
+                    Toast.makeText(container.getContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+        test = Startgame(words);
         ques= new ArrayList<>();
         for(int i=0 ;i<10;i++)
         {
             Question q = new Question();
-            q.word = (Word) test.get(i);
-            q.kq = -1;
+            q.word = (CWord) test.get(i);
+            q.kq1 = -1;
+            q.kq2 =-1;
+            q.kq=-1;
             ques.add(i,q);
         }
 
@@ -123,13 +156,11 @@ public class CWordFragment extends Fragment {
                 }
                 if (count < 9) {
                     count = count + 1;
-                    if (type == 1) {
                         setWord(count);
-                    } else {
-                        setSentence(count);
-                    }
+
                 } else {
-                    wordTextTV.setText("5/10");
+                    wordScore.setVisibility(View.VISIBLE);
+                    wordScore.setText("5/10");
                     EndGame();
 
                 }
@@ -142,17 +173,11 @@ public class CWordFragment extends Fragment {
                 count = count - 1;
                 if (count > 0) {
                     btnPreWord.setVisibility(View.VISIBLE);
-                    if (type == 1) {
+
                         setWord(count);
-                    } else {
-                        setSentence(count);
-                    }
+
                 } else {
-                    if (type == 1) {
                         setWord(0);
-                    } else {
-                        setSentence(0);
-                    }
                     btnPreWord.setVisibility(View.INVISIBLE);
                 }
 
@@ -161,13 +186,15 @@ public class CWordFragment extends Fragment {
         replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                test = Startgame(words, sentence);
+                test = Startgame(words);
                 ques= new ArrayList<>();
                 for(int i=0 ;i<10;i++)
                 {
                     Question q = new Question();
-                    q.word = (Word) test.get(i);
-                    q.kq = -1;
+                    q.word = (CWord) test.get(i);
+                    q.kq1 = -1;
+                    q.kq2 =-1;
+                    q.kq=-1;
                     ques.add(i,q);
                 }
 
@@ -177,132 +204,118 @@ public class CWordFragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*new AlertDialog.Builder(container.getContext())
-                        .setTitle("Choose test:")
-                        .setMessage("")
-                        .setPositiveButton("Word", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                type = 1;
-                                Startgame(words, sentence);
 
-                            }
-                        })
-                        .setNegativeButton("Sentence", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                type = 2;
-                                Startgame(words, sentence);
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();*/
                 getFragmentManager().beginTransaction().replace(R.id.wordFragment,WordFragment.createFragment()).commit();
 
             }
         });
 
-        wordTextTV.setText("!@#!@#!@#!@#!@#!");
         return rootView;
     }
 
     public void setWord(int count) {
-        Word word = (Word) test.get(count);
-        String wordText = word.getWord();
-        String wordPhonetic = word.getPhonetic();
-        wordTextTV.setText(wordText);
-        wordPhoneticTV.setText(wordPhonetic);
+        CWord word = (CWord) test.get(count);
+        String wordText = word.getfWord();
+        String wordPhonetic = word.getfPhonetic();
+        wordTextTV1.setText(wordText);
+        wordPhoneticTV1.setText(wordPhonetic);
+        wordText = word.getsWord();
+        wordPhonetic = word.getsPhonetic();
+        wordTextTV2.setText(wordText);
+        wordPhoneticTV2.setText(wordPhonetic);
         index= count;
         checkresult();
     }
     public static void checkresult()
     {
-        if(ques.get(index).kq==-1) {
+        if(ques.get(index).kq1==-1) {
             result.setVisibility(View.INVISIBLE);
-            btnRecord.setVisibility(View.VISIBLE);
+            btnRecord1.setVisibility(View.VISIBLE);
         }
         else
-            if(ques.get(index).kq==1) {
+            if(ques.get(index).kq1==1) {
                 result.setVisibility(View.VISIBLE);
                 result.setBackgroundResource(R.drawable.true2);
-                btnRecord.setVisibility(View.INVISIBLE);
+                btnRecord1.setVisibility(View.INVISIBLE);
             }
             else
             {
                 result.setVisibility(View.VISIBLE);
                 result.setBackgroundResource(R.drawable.false2);
-                btnRecord.setVisibility(View.INVISIBLE);
+                btnRecord1.setVisibility(View.INVISIBLE);
+            }
+        if(ques.get(index).kq2==-1) {
+            result.setVisibility(View.INVISIBLE);
+            btnRecord2.setVisibility(View.VISIBLE);
+        }
+        else
+            if(ques.get(index).kq2==1) {
+                result.setVisibility(View.VISIBLE);
+                result.setBackgroundResource(R.drawable.true2);
+                btnRecord2.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                result.setVisibility(View.VISIBLE);
+                result.setBackgroundResource(R.drawable.false2);
+                btnRecord2.setVisibility(View.INVISIBLE);
             }
 
     }
 
-    public void setSentence(int count) {
-        try {
-            Sentence word = (Sentence) test.get(count);
-            String wordText = word.getSentence();
-            String wordPhonetic = word.getPhonetic_Word1();
-            wordTextTV.setText(wordText);
-            wordPhoneticTV.setText(wordPhonetic);
-            Log.d(TAG, "setSentence: " + wordText);
 
-        } catch (Exception ex) {
-            Log.d("Tag", "setSentence: " + ex.getLocalizedMessage());
-        }
-    }
 
     public void EndGame() {
         result.setVisibility(View.INVISIBLE);
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
-        btnSpeaker.setVisibility(View.INVISIBLE);
-        btnRecord.setVisibility(View.INVISIBLE);
-        wordPhoneticTV.setVisibility(View.INVISIBLE);
+        btnSpeaker1.setVisibility(View.INVISIBLE);
+        btnRecord1.setVisibility(View.INVISIBLE);
+        btnSpeaker2.setVisibility(View.INVISIBLE);
+        btnRecord2.setVisibility(View.INVISIBLE);
+        wordPhoneticTV1.setVisibility(View.INVISIBLE);
+        wordPhoneticTV2.setVisibility(View.INVISIBLE);
         replay.setVisibility(View.VISIBLE);
     }
 
-    public ArrayList Startgame(ArrayList<Word> words, ArrayList<Sentence> sentence) {
+    public ArrayList Startgame(ArrayList<CWord> words) {
         count = 0;
         test = new ArrayList();
-        if (type == 1) {
-            List<Word> test1 = new ArrayList<Word>();
+
+            List<CWord> test1 = new ArrayList<CWord>();
             for (int i = 0; i < words.size(); i++) {
                 test1.add(words.get(i));
             }
             Collections.shuffle(test1);
             Collections.shuffle(test1);
-            test = new ArrayList<Word>();
+            test = new ArrayList<CWord>();
             for (int i = 0; i < 10; i++) {
                 test.add(test1.get(i));
             }
-            Word word = (Word) test.get(0);
+        CWord word = (CWord) test.get(0);
             index=0;
-            String wordText = word.getWord();
-            String wordPhonetic = word.getPhonetic();
-            wordTextTV.setText(wordText);
-            wordPhoneticTV.setText(wordPhonetic);
-        } else {
-            List<Sentence> test1 = new ArrayList<Sentence>();
-            for (int i = 0; i < sentence.size(); i++) {
-                test1.add(sentence.get(i));
-            }
-            Collections.shuffle(test1);
-            Collections.shuffle(test1);
-            test = new ArrayList<Sentence>();
-            for (int i = 0; i < 10; i++) {
-                test.add(test1.get(i));
-            }
-            Sentence word = (Sentence) test.get(0);
-            String wordText = word.getSentence();
-            String wordPhonetic = word.getPhonetic_Word1();
-            wordTextTV.setText(wordText);
-            wordPhoneticTV.setText(wordPhonetic);
+            String wordText = word.getfWord();
+            String wordPhonetic = word.getfPhonetic();
+            wordTextTV1.setText(wordText);
+            wordPhoneticTV1.setText(wordPhonetic);
+        wordText = word.getsWord();
+        wordPhonetic = word.getsPhonetic();
+        wordTextTV2.setText(wordText);
+        wordPhoneticTV2.setText(wordPhonetic);
 
-        }
+        wordScore.setVisibility(View.INVISIBLE);
         replay.setVisibility(View.INVISIBLE);
         result.setVisibility(View.INVISIBLE);
+        wordPhoneticTV1.setVisibility(View.VISIBLE);
+        wordPhoneticTV2.setVisibility(View.VISIBLE);
+        wordPhoneticTV1.setVisibility(View.VISIBLE);
+        wordPhoneticTV2.setVisibility(View.VISIBLE);
         btnNextWord.setVisibility(View.VISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
-        btnSpeaker.setVisibility(View.VISIBLE);
-        btnRecord.setVisibility(View.VISIBLE);
-        wordPhoneticTV.setVisibility(View.VISIBLE);
+        btnSpeaker1.setVisibility(View.VISIBLE);
+        btnRecord1.setVisibility(View.VISIBLE);
+        btnSpeaker2.setVisibility(View.VISIBLE);
+        btnRecord2.setVisibility(View.VISIBLE);
         Log.d(TAG, "Startgame: " + type);
         Log.d("Tag", "Startgame: " + test.size());
         return test;
@@ -310,7 +323,9 @@ public class CWordFragment extends Fragment {
     }
     public static class Question
     {
-        public Word word;
+        public CWord word;
+        public int kq1;
+        public int kq2;
         public int kq;
     }
 }
