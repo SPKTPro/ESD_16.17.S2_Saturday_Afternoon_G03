@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Activity.TabActivity;
 import com.example.rinnv.esd_g03.Models.CWord;
-import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
@@ -103,29 +102,19 @@ public class CWordFragment extends Fragment {
             public void onClick(View v) {
 
                 if (((TabActivity) container.getContext()).isConnected()) {
-
                     CWord w = (CWord) test.get(index);
-
-                    //  ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(),index,w);
-
-
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(), index, null, w);
                 } else {
                     Toast.makeText(container.getContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
         btnRecord2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (((TabActivity) container.getContext()).isConnected()) {
-
-                    Word w = (Word) test.get(index);
-
-                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV2.getText().toString(), index, w,null);
-
-
+                    CWord cWord = (CWord) test.get(index);
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV2.getText().toString(), index, null, cWord);
                 } else {
                     Toast.makeText(container.getContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
                 }
