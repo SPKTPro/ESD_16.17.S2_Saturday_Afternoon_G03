@@ -22,8 +22,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-import static android.content.ContentValues.TAG;
-
 
 /**
  * Created by thaihuynh on 4/24/2017.
@@ -294,7 +292,6 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         }
         return list;
     }
-
 
     public boolean updateNumcheckWord(String Word, int num) {
         try {

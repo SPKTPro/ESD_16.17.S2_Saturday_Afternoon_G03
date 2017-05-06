@@ -3,18 +3,19 @@ package com.example.rinnv.esd_g03.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.rinnv.esd_g03.Models.Phonetic;
-import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
+import com.example.rinnv.esd_g03.Ultility.LogUtility;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = new SQLiteDataController(MainActivity.this.getApplicationContext());
         createDb();
+        String time = DateFormat.getDateTimeInstance().format(new Date()).toString() ;
+        new LogUtility().writeLog("Open app in: "+ time,MainActivity.this);
 
         ArrayList<Phonetic> phonetics = db.getListPhonetic("2");
 
@@ -80,5 +83,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new LogUtility().writeLog("Resume app at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),MainActivity.this);
     }
 }
