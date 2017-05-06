@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Activity.TabActivity;
-import com.example.rinnv.esd_g03.Models.Sentence;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
@@ -90,7 +89,7 @@ public class WordFragment extends Fragment {
 
                     Word w = (Word) test.get(index);
 
-                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString(), index, w);
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV.getText().toString(), index, w,null);
 
 
                 } else {

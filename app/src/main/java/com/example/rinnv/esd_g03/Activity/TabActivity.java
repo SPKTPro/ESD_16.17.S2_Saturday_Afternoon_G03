@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Fragment.TheoryFragment;
 import com.example.rinnv.esd_g03.Fragment.WordFragment;
+import com.example.rinnv.esd_g03.Models.CWord;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 
@@ -35,6 +36,7 @@ public class TabActivity extends AppCompatActivity {
     public String your_word = "";
     public int index = 0;
     Word w;
+    CWord cWord;
     private final int SPEECH_RECOGNITION_CODE = 1001;
     private String TAG = "Tag";
     public static int Choice = 0;
@@ -61,10 +63,11 @@ public class TabActivity extends AppCompatActivity {
         mTts.speak(word, TextToSpeech.QUEUE_FLUSH, null);
     }
 
-    public void startSpeechToText(String word, int i, Word q) {
+    public void startSpeechToText(String word, int i, Word q, CWord cq) {
         your_word = word;
         index = i;
         w = q;
+        cWord = cq;
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);

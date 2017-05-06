@@ -13,12 +13,12 @@ public class CWord {
     private String s_Phonetic;
 
     public CWord(String group, String f_Word, String f_Phonetic, String s_Word, String s_Phonetic, int num_Check) {
-        Group = group;
-        f_Word = f_Word;
-        s_Word = s_Word;
+        this.Group = group;
+        this.f_Word = f_Word;
+        this.s_Word = s_Word;
         Num_Check = num_Check;
-        f_Phonetic = f_Phonetic;
-        s_Phonetic = s_Phonetic;
+        this.f_Phonetic = f_Phonetic;
+        this.s_Phonetic = s_Phonetic;
     }
 
     public String getGroup() {

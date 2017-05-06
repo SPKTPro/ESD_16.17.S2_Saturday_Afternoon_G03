@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Activity.TabActivity;
 import com.example.rinnv.esd_g03.Models.CWord;
-import com.example.rinnv.esd_g03.Models.Sentence;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
@@ -41,7 +40,7 @@ public class CWordFragment extends Fragment {
     static ImageButton btnRecord2;
     ImageButton btnSpeaker2;
     static ImageButton result;
-    ImageButton replay;
+    private static ImageButton replay;
     String pheonicGrId;
     private String TAG = "Tag";
     private static int type = 1;
@@ -68,10 +67,10 @@ public class CWordFragment extends Fragment {
         SQLiteDataController db = new SQLiteDataController(container.getContext());
         pheonicGrId = Config.PHEONIC_GROUP_ID;
         Log.d(TAG, "onCreateView: new fragment");
-        
+
         words = db.getListCWord(pheonicGrId);
 
-        wordScore= (TextView) rootView.findViewById(R.id.wordText);
+        wordScore = (TextView) rootView.findViewById(R.id.wordText);
         wordTextTV1 = (TextView) rootView.findViewById(R.id.fword);
         wordPhoneticTV1 = (TextView) rootView.findViewById(R.id.fpho);
         wordTextTV2 = (TextView) rootView.findViewById(R.id.sword);
@@ -107,7 +106,7 @@ public class CWordFragment extends Fragment {
 
                     CWord w = (CWord) test.get(index);
 
-                 //  ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(),index,w);
+                    //  ((TabActivity) container.getContext()).startSpeechToText(wordTextTV1.getText().toString(),index,w);
 
 
                 } else {
@@ -124,7 +123,7 @@ public class CWordFragment extends Fragment {
 
                     Word w = (Word) test.get(index);
 
-                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV2.getText().toString(),index,w);
+                    ((TabActivity) container.getContext()).startSpeechToText(wordTextTV2.getText().toString(), index, w,null);
 
 
                 } else {
@@ -134,15 +133,14 @@ public class CWordFragment extends Fragment {
             }
         });
         test = Startgame(words);
-        ques= new ArrayList<>();
-        for(int i=0 ;i<10;i++)
-        {
+        ques = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
             Question q = new Question();
             q.word = (CWord) test.get(i);
             q.kq1 = -1;
-            q.kq2 =-1;
-            q.kq=-1;
-            ques.add(i,q);
+            q.kq2 = -1;
+            q.kq = -1;
+            ques.add(i, q);
         }
 
         btnNextWord.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +154,7 @@ public class CWordFragment extends Fragment {
                 }
                 if (count < 9) {
                     count = count + 1;
-                        setWord(count);
+                    setWord(count);
 
                 } else {
                     wordScore.setVisibility(View.VISIBLE);
@@ -174,10 +172,10 @@ public class CWordFragment extends Fragment {
                 if (count > 0) {
                     btnPreWord.setVisibility(View.VISIBLE);
 
-                        setWord(count);
+                    setWord(count);
 
                 } else {
-                        setWord(0);
+                    setWord(0);
                     btnPreWord.setVisibility(View.INVISIBLE);
                 }
 
@@ -187,15 +185,14 @@ public class CWordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 test = Startgame(words);
-                ques= new ArrayList<>();
-                for(int i=0 ;i<10;i++)
-                {
+                ques = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
                     Question q = new Question();
                     q.word = (CWord) test.get(i);
                     q.kq1 = -1;
-                    q.kq2 =-1;
-                    q.kq=-1;
-                    ques.add(i,q);
+                    q.kq2 = -1;
+                    q.kq = -1;
+                    ques.add(i, q);
                 }
 
             }
@@ -205,7 +202,7 @@ public class CWordFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                getFragmentManager().beginTransaction().replace(R.id.wordFragment,WordFragment.createFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.wordFragment, WordFragment.createFragment()).commit();
 
             }
         });
@@ -223,46 +220,37 @@ public class CWordFragment extends Fragment {
         wordPhonetic = word.getsPhonetic();
         wordTextTV2.setText(wordText);
         wordPhoneticTV2.setText(wordPhonetic);
-        index= count;
+        index = count;
         checkresult();
     }
-    public static void checkresult()
-    {
-        if(ques.get(index).kq1==-1) {
+
+    public static void checkresult() {
+        if (ques.get(index).kq1 == -1) {
             result.setVisibility(View.INVISIBLE);
             btnRecord1.setVisibility(View.VISIBLE);
+        } else if (ques.get(index).kq1 == 1) {
+            result.setVisibility(View.VISIBLE);
+            result.setBackgroundResource(R.drawable.true2);
+            btnRecord1.setVisibility(View.INVISIBLE);
+        } else {
+            result.setVisibility(View.VISIBLE);
+            result.setBackgroundResource(R.drawable.false2);
+            btnRecord1.setVisibility(View.INVISIBLE);
         }
-        else
-            if(ques.get(index).kq1==1) {
-                result.setVisibility(View.VISIBLE);
-                result.setBackgroundResource(R.drawable.true2);
-                btnRecord1.setVisibility(View.INVISIBLE);
-            }
-            else
-            {
-                result.setVisibility(View.VISIBLE);
-                result.setBackgroundResource(R.drawable.false2);
-                btnRecord1.setVisibility(View.INVISIBLE);
-            }
-        if(ques.get(index).kq2==-1) {
+        if (ques.get(index).kq2 == -1) {
             result.setVisibility(View.INVISIBLE);
             btnRecord2.setVisibility(View.VISIBLE);
+        } else if (ques.get(index).kq2 == 1) {
+            result.setVisibility(View.VISIBLE);
+            result.setBackgroundResource(R.drawable.true2);
+            btnRecord2.setVisibility(View.INVISIBLE);
+        } else {
+            result.setVisibility(View.VISIBLE);
+            result.setBackgroundResource(R.drawable.false2);
+            btnRecord2.setVisibility(View.INVISIBLE);
         }
-        else
-            if(ques.get(index).kq2==1) {
-                result.setVisibility(View.VISIBLE);
-                result.setBackgroundResource(R.drawable.true2);
-                btnRecord2.setVisibility(View.INVISIBLE);
-            }
-            else
-            {
-                result.setVisibility(View.VISIBLE);
-                result.setBackgroundResource(R.drawable.false2);
-                btnRecord2.setVisibility(View.INVISIBLE);
-            }
 
     }
-
 
 
     public void EndGame() {
@@ -282,28 +270,32 @@ public class CWordFragment extends Fragment {
         count = 0;
         test = new ArrayList();
 
-            List<CWord> test1 = new ArrayList<CWord>();
-            for (int i = 0; i < words.size(); i++) {
-                test1.add(words.get(i));
-            }
-            Collections.shuffle(test1);
-            Collections.shuffle(test1);
-            test = new ArrayList<CWord>();
-            for (int i = 0; i < 10; i++) {
-                test.add(test1.get(i));
-            }
+        List<CWord> test1 = new ArrayList<CWord>();
+        for (int i = 0; i < words.size(); i++) {
+            CWord w = words.get(i);
+            Log.d(TAG, "Startgame: tittle" + w.getfWord());
+            test1.add(words.get(i));
+        }
+        Collections.shuffle(test1);
+        Log.d(TAG, "Startgame: test sieze" + test1.size());
+
+        test = new ArrayList<CWord>();
+        for (int i = 0; i < 10; i++) {
+            test.add(test1.get(i));
+        }
         CWord word = (CWord) test.get(0);
-            index=0;
-            String wordText = word.getfWord();
-            String wordPhonetic = word.getfPhonetic();
-            wordTextTV1.setText(wordText);
-            wordPhoneticTV1.setText(wordPhonetic);
+        index = 0;
+        String wordText = word.getfWord();
+        String wordPhonetic = word.getfPhonetic();
+        wordTextTV1.setText(wordText);
+        wordPhoneticTV1.setText(wordPhonetic);
         wordText = word.getsWord();
         wordPhonetic = word.getsPhonetic();
         wordTextTV2.setText(wordText);
         wordPhoneticTV2.setText(wordPhonetic);
 
         wordScore.setVisibility(View.INVISIBLE);
+
         replay.setVisibility(View.INVISIBLE);
         result.setVisibility(View.INVISIBLE);
         wordPhoneticTV1.setVisibility(View.VISIBLE);
@@ -316,13 +308,12 @@ public class CWordFragment extends Fragment {
         btnRecord1.setVisibility(View.VISIBLE);
         btnSpeaker2.setVisibility(View.VISIBLE);
         btnRecord2.setVisibility(View.VISIBLE);
-        Log.d(TAG, "Startgame: " + type);
-        Log.d("Tag", "Startgame: " + test.size());
+
         return test;
 
     }
-    public static class Question
-    {
+
+    public static class Question {
         public CWord word;
         public int kq1;
         public int kq2;

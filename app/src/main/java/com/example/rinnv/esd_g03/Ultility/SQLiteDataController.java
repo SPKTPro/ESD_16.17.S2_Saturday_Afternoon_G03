@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 
 /**
  * Created by thaihuynh on 4/24/2017.
@@ -150,11 +152,13 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         ArrayList<CWord> list = new ArrayList<>();
         try {
             openDataBase();
-            Cursor cs = database.rawQuery("select * from CWORD where Pho_Group = " + '"' + IDExample + '"', null);
+            String query = "select * from CWORD where Pho_Group = " + '"' + IDExample + '"';
+            Cursor cs = database.rawQuery(query, null);
             CWord cWord;
             while (cs.moveToNext()) {
                 cWord = new CWord(cs.getString(0), cs.getString(1), cs.getString(2),cs.getString(3), cs.getString(4),Integer.parseInt(cs.getString(5)));
                 list.add(cWord);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
