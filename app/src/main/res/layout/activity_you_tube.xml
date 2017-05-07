@@ -6,10 +6,6 @@
     android:orientation="vertical"
     tools:context=".Activity.YouTubeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/section_label"/>
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/youtube_view"

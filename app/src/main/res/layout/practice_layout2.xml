@@ -7,9 +7,9 @@
     <ImageButton
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="#ffffff"
+        android:background="@drawable/test"
         android:layout_margin="15dp"
-        android:id="@+id/home" />
+        android:id="@+id/test" />
     <ImageButton
         android:id="@+id/btnmenu"
         android:layout_width="42dp"
@@ -25,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pronounce words below"
-        android:layout_below="@+id/home"
-        android:layout_alignStart="@+id/home" />
+        android:layout_below="@+id/test"
+        android:layout_alignStart="@+id/test" />
 
     <TextView
         android:id="@+id/wordText"

@@ -32,8 +32,7 @@ public class YouTubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         playerStateChangeListener = new MyPlayerStateChangeListener();
         playbackEventListener = new MyPlaybackEventListener();
         youtube_key = getIntent().getStringExtra(Config.YOUTUBE_LINK);
-        TextView textView = (TextView) findViewById(R.id.section_label);
-        textView.setText("This is abc xyz for");
+
 
     }
 

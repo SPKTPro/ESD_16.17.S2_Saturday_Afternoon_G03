@@ -96,16 +96,17 @@ public class TabActivity extends AppCompatActivity {
                     String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
                     // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
                     if (matches_text2[0].toLowerCase().equals(your_word.toLowerCase()) ||
-                            matches_text2[1].toLowerCase().equals(your_word.toLowerCase())) {
+                            matches_text2[1].toLowerCase().equals(your_word.toLowerCase())||
+                            matches_text2[2].toLowerCase().equals(your_word.toLowerCase())) {
                         // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "dung"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(this, "dung"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
                         WordFragment.Question q = new WordFragment.Question();
                         q.word = w;
                         q.kq = 1;
                         WordFragment.ques.set(index, q);
                         WordFragment.checkresult();
                     } else {
-                        Toast.makeText(this, "sai"+" "+your_word.toLowerCase()+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(this, "sai"+" "+your_word.toLowerCase()+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
                         WordFragment.Question q = new WordFragment.Question();
                         q.word = w;
                         q.kq = 0;
@@ -120,9 +121,10 @@ public class TabActivity extends AppCompatActivity {
                     String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
                     // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
                     if (matches_text2[0].toLowerCase().equals(your_word.toLowerCase()) ||
-                            matches_text2[1].toLowerCase().equals(your_word.toLowerCase())) {
+                            matches_text2[1].toLowerCase().equals(your_word.toLowerCase())
+                            ||matches_text2[2].toLowerCase().equals(your_word.toLowerCase())) {
                         // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "dung"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
+                   //     Toast.makeText(this, "dung"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
                         if(type2==1)
                             CWordFragment.ques.get(index).kq1=1;
                         else
@@ -131,7 +133,7 @@ public class TabActivity extends AppCompatActivity {
                         CWordFragment.checkresult();
                         CWordFragment.checkresult2(index);
                     } else {
-                        Toast.makeText(this, "sai"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(this, "sai"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
                         if(type2==1)
                             CWordFragment.ques.get(index).kq1=0;
                         else

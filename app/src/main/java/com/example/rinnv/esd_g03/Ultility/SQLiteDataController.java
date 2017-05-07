@@ -154,7 +154,7 @@ public class SQLiteDataController extends SQLiteOpenHelper {
             Cursor cs = database.rawQuery(query, null);
             CWord cWord;
             while (cs.moveToNext()) {
-                cWord = new CWord(cs.getString(0), cs.getString(1), cs.getString(2),cs.getString(3), cs.getString(4),Integer.parseInt(cs.getString(5)));
+                cWord = new CWord(cs.getString(0), cs.getString(1), cs.getString(2),cs.getString(3), cs.getString(4),Integer.parseInt(cs.getString(5)),Integer.parseInt(cs.getString(6)));
                 list.add(cWord);
 
             }
@@ -165,6 +165,7 @@ public class SQLiteDataController extends SQLiteOpenHelper {
         }
         return list;
     }
+
 
     public ArrayList<Phonetic> getListPhonetic(String phoneticGrId) {
         ArrayList<Phonetic> list = new ArrayList<>();

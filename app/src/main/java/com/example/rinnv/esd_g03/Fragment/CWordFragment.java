@@ -39,6 +39,7 @@ public class CWordFragment extends Fragment {
     TextView wordPhoneticTV2;
     ImageButton btnNextWord;
     ImageButton btnPreWord;
+    ImageButton pretest;
     static ImageButton btnRecord1;
     ImageButton btnSpeaker1;
     static ImageButton btnRecord2;
@@ -56,6 +57,7 @@ public class CWordFragment extends Fragment {
     ImageButton menu;
     int score1=0, score2=0;
     static SQLiteDataController db;
+    int t=0;
     public CWordFragment() {
 
     }
@@ -82,6 +84,7 @@ public class CWordFragment extends Fragment {
         wordTextTV2 = (TextView) rootView.findViewById(R.id.sword);
         wordPhoneticTV2 = (TextView) rootView.findViewById(R.id.spho);
         result = (ImageButton) rootView.findViewById(R.id.result);
+        pretest = (ImageButton) rootView.findViewById(R.id.test);
         btnNextWord = (ImageButton) rootView.findViewById(R.id.btnnext);
         btnPreWord = (ImageButton) rootView.findViewById(R.id.btnprevious);
         replay = (ImageButton) rootView.findViewById(R.id.btnreplay);
@@ -126,6 +129,13 @@ public class CWordFragment extends Fragment {
                     Toast.makeText(container.getContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
                 }
 
+            }
+        });
+        pretest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                t=1;
+                Startgame(words);
             }
         });
         test = Startgame(words);
@@ -196,7 +206,7 @@ public class CWordFragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                t=0;
                 getFragmentManager().beginTransaction().replace(R.id.wordFragment, WordFragment.createFragment()).commit();
 
             }
@@ -393,6 +403,10 @@ public class CWordFragment extends Fragment {
     }
     public Boolean Boolean_Random()
     {
+        if(t==1)
+        {
+            return false;
+        }
         words = db.getListCWord(pheonicGrId);
         for (int i=0;i<words.size();i++)
         {
@@ -405,14 +419,22 @@ public class CWordFragment extends Fragment {
     {
 
         ArrayList<CWord> list = new ArrayList<CWord>();
-
-        for (int i=0;i<words.size();i++)
-        {
-            if(words.get(i).getNum_Check()!=0) {
-                list.add(words.get(i));
-                Log.d("Tag", "List: " + words.get(i).getfWord()+" "+words.get(i).getNum_Check());
+        if(t!=1)
+            for (int i=0;i<words.size();i++)
+            {
+                if(words.get(i).getNum_Check()!=0) {
+                    list.add(words.get(i));
+                    Log.d("Tag", "List: " + words.get(i).getfWord()+" "+words.get(i).getNum_Check());
+                }
             }
-        }
+            else
+            for (int i=0;i<words.size();i++)
+            {
+                if(words.get(i).getTest()==1) {
+                    list.add(words.get(i));
+                    Log.d("Tag", "List: " + words.get(i).getfWord()+" "+words.get(i).getNum_Check());
+                }
+            }
 
         return list;
 

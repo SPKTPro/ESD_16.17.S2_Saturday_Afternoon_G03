@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         String phonetic1Title = phonetic1.getPhonetic();
         Button couple1 = (Button) findViewById(R.id.button1);
         Button couple2 = (Button) findViewById(R.id.button2);
-        couple2.setText("/"+phonetic1Title+"/"+" and /u:/");
+        couple2.setText("/b/"+" and /p/");
         couple1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,21 +51,10 @@ public class MainActivity extends AppCompatActivity {
         couple2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*ArrayList<Phonetic> wordArrayList = db.getListPhonetic("1");
-                // co khi no ko lay dc phan tu nao nen no ko in
-                // ok
-                Log.d(TAG, "onClick: So luong example dc tim thay "+wordArrayList.size());
-                for (Phonetic phonetic : wordArrayList) {
-                    // ghi ra file log vs tag la onClick, neu muon xem lai gia tri log thi vao tab
-                    // android monitor nhap tag
-                    // binh thuong ma
-                    //luc nay khong chay
 
-                    Log.d(TAG, "onClick: " + phonetic.getLink());
-                }*/
 
                 Intent intent = new Intent(MainActivity.this, TabActivity.class);
-                Config.PHEONIC_GROUP_ID ="2";
+                Config.PHEONIC_GROUP_ID ="3";
                 startActivity(intent);
 
                 /*Intent intent = new Intent(MainActivity.this,YouTubeActivity.class);
