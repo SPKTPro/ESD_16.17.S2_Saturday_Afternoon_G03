@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by rinnv on 4/20/2017.
@@ -283,7 +284,14 @@ public class CWordFragment extends Fragment {
         }
         wordScore.setText(score1+"/10");
         wordScore2.setText(score2+"/20");
-        new LogUtility().writeLog("Doing Test2 at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+        if (Objects.equals(pheonicGrId, "1"))
+        {
+            new LogUtility().writeLog("Doing Test2 i at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+        }
+        else
+        if(Objects.equals(pheonicGrId, "2"))
+            new LogUtility().writeLog("Doing Test2 u at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+
         new LogUtility().writeLog("End Test2 with score1 : "+score1+" score2: "+score2,getContext());
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
