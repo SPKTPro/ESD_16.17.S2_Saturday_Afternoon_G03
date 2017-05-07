@@ -57,7 +57,7 @@ public class CWordFragment extends Fragment {
     ImageButton menu;
     int score1=0, score2=0;
     static SQLiteDataController db;
-    int t=0;
+    static int t=0;
     public CWordFragment() {
 
     }
@@ -76,7 +76,7 @@ public class CWordFragment extends Fragment {
         Log.d(TAG, "onCreateView: new fragment");
 
         words = db.getListCWord(pheonicGrId);
-
+        t=0;
         wordScore = (TextView) rootView.findViewById(R.id.wordText);
         wordScore2 = (TextView) rootView.findViewById(R.id.wordPhonetic);
         wordTextTV1 = (TextView) rootView.findViewById(R.id.fword);
@@ -261,9 +261,12 @@ public class CWordFragment extends Fragment {
             ques.get(i).kq=1;
              result.setVisibility(View.VISIBLE);
              result.setBackgroundResource(R.drawable.true2);
-            CWord w = (CWord) test.get(index);
-            if(w.getNum_Check()<=2 && w.getNum_Check()>0)
-                db.updateNumcheckCWord(w.getfWord(),w.getNum_Check()-1);
+
+            if(t!=1) {
+                CWord w = (CWord) test.get(index);
+                if (w.getNum_Check() <= 2 && w.getNum_Check() > 0)
+                    db.updateNumcheckCWord(w.getfWord(), w.getNum_Check() - 1);
+            }
         }
         else
             if((ques.get(i).kq1==1&&ques.get(i).kq2==0)||(ques.get(i).kq1==0&&ques.get(i).kq2==1)||(ques.get(i).kq1==0&&ques.get(i).kq2==0))
@@ -271,8 +274,10 @@ public class CWordFragment extends Fragment {
             ques.get(i).kq=0;
             result.setVisibility(View.VISIBLE);
             result.setBackgroundResource(R.drawable.false2);
-            CWord w = (CWord) test.get(index);
-            db.updateNumcheckCWord(w.getfWord(),2);
+            if(t!=1) {
+                CWord w = (CWord) test.get(index);
+                db.updateNumcheckCWord(w.getfWord(), 2);
+            }
 
         }
         else
