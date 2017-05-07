@@ -14,6 +14,7 @@ import com.example.rinnv.esd_g03.Activity.TabActivity;
 import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
+import com.example.rinnv.esd_g03.Ultility.LogUtility;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
 import java.util.ArrayList;
@@ -230,6 +231,8 @@ public class WordFragment extends Fragment {
                 score++;
         }
         wordTextTV.setText(score+"/10");
+        new LogUtility().writeLog("End CWord Game with score1 : "+score,getContext());
+
         wordTextTV.setTextSize(60);
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);

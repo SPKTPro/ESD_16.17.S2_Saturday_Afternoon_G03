@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.Activity.TabActivity;
 import com.example.rinnv.esd_g03.Models.CWord;
-import com.example.rinnv.esd_g03.Models.Word;
 import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
+import com.example.rinnv.esd_g03.Ultility.LogUtility;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
 import java.util.ArrayList;
@@ -281,6 +281,7 @@ public class CWordFragment extends Fragment {
         }
         wordScore.setText(score1+"/10");
         wordScore2.setText(score2+"/20");
+        new LogUtility().writeLog("End CWord Game with score1 : "+score1+" score2: "+score2,getContext());
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
         btnSpeaker1.setVisibility(View.INVISIBLE);
