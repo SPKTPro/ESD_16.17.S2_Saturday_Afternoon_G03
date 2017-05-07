@@ -231,7 +231,7 @@ public class WordFragment extends Fragment {
                 score++;
         }
         wordTextTV.setText(score+"/10");
-        new LogUtility().writeLog("End CWord Game with score1 : "+score,getContext());
+        new LogUtility().writeLog("End Word Game with score1 : "+score,getContext());
 
         wordTextTV.setTextSize(60);
         btnNextWord.setVisibility(View.INVISIBLE);
