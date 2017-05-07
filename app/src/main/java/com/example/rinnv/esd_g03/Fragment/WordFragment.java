@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by rinnv on 4/20/2017.
@@ -233,7 +234,14 @@ public class WordFragment extends Fragment {
                 score++;
         }
         wordTextTV.setText(score+"/10");
-        new LogUtility().writeLog("Doing Test1 at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+        if (Objects.equals(pheonicGrId, "1"))
+        {
+            new LogUtility().writeLog("Doing Test1 i at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+        }
+        else
+            if(Objects.equals(pheonicGrId, "2"))
+                new LogUtility().writeLog("Doing Test1 u at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+
         new LogUtility().writeLog("End Test1 with score : "+score,getContext());
         wordTextTV.setTextSize(60);
         btnNextWord.setVisibility(View.INVISIBLE);
@@ -295,8 +303,7 @@ public class WordFragment extends Fragment {
         btnSpeaker.setVisibility(View.VISIBLE);
         btnRecord.setVisibility(View.VISIBLE);
         wordPhoneticTV.setVisibility(View.VISIBLE);
-        Log.d(TAG, "Startgame: " + type);
-        Log.d("Tag", "Startgame: " + test.size());
+
         return test;
 
     }
