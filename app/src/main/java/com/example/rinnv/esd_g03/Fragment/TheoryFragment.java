@@ -1,6 +1,6 @@
 package com.example.rinnv.esd_g03.Fragment;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.rinnv.esd_g03.Activity.YouTubeActivity;
 import com.example.rinnv.esd_g03.Adaptor.PhenoticExampleAdapter;
 import com.example.rinnv.esd_g03.Adaptor.PronounceAdapter;
 import com.example.rinnv.esd_g03.Models.Example;
@@ -19,6 +18,7 @@ import com.example.rinnv.esd_g03.R;
 import com.example.rinnv.esd_g03.Ultility.Config;
 import com.example.rinnv.esd_g03.Ultility.ExpandableHeightListView;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class TheoryFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.theory_layout, container, false);
         SQLiteDataController db = new SQLiteDataController(container.getContext());
         String pheonicGrId = Config.PHEONIC_GROUP_ID;
@@ -109,18 +109,16 @@ public class TheoryFragment extends Fragment {
         btnUtube_Pho1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),YouTubeActivity.class);
-                intent.putExtra(Config.YOUTUBE_LINK, linkUtube_Pho1);
-                startActivity(intent);
+                startActivity(YouTubeStandalonePlayer.createVideoIntent((Activity) container.getContext(),
+                        Config.YOUTUBE_API_KEY, linkUtube_Pho1));
             }
         });
 
         btnUtube_Pho2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),YouTubeActivity.class);
-                intent.putExtra(Config.YOUTUBE_LINK, linkUtube_Pho2);
-                startActivity(intent);
+                startActivity(YouTubeStandalonePlayer.createVideoIntent((Activity) container.getContext(),
+                        Config.YOUTUBE_API_KEY, linkUtube_Pho2));
             }
         });
 

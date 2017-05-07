@@ -26,7 +26,6 @@
             android:name=".Activity.TabActivity"
             android:label="@string/title_activity_tab"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.YouTubeActivity"></activity>
     </application>
 
 </manifest>
