@@ -2,6 +2,7 @@ package com.example.rinnv.esd_g03.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rinnv.esd_g03.R;
@@ -24,23 +25,15 @@ public class YouTubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_tube);
+
+
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(Config.YOUTUBE_API_KEY, this);
-
         playerStateChangeListener = new MyPlayerStateChangeListener();
         playbackEventListener = new MyPlaybackEventListener();
-
         youtube_key = getIntent().getStringExtra(Config.YOUTUBE_LINK);
-
-        /*final EditText seekToText = (EditText) findViewById(R.id.seek_to_text);
-        Button seekToButton = (Button) findViewById(R.id.seek_to_button);
-        seekToButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int skipToSecs = Integer.valueOf(seekToText.getText().toString());
-                player.seekToMillis(skipToSecs * 1000);
-            }
-        });*/
+        TextView textView = (TextView) findViewById(R.id.section_label);
+        textView.setText("This is abc xyz for");
 
     }
 
