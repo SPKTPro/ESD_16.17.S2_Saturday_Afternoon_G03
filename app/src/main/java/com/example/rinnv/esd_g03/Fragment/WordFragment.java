@@ -247,7 +247,7 @@ public class WordFragment extends Fragment {
     public ArrayList Startgame(ArrayList<Word> words) {
         count = 0;
         test = new ArrayList<Word>();
-
+        score=0;
         if(Boolean_Random())
         {
             List<Word> test1 = new ArrayList<Word>();
