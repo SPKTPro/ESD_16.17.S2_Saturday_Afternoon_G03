@@ -18,8 +18,10 @@ import com.example.rinnv.esd_g03.Ultility.Config;
 import com.example.rinnv.esd_g03.Ultility.LogUtility;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -281,7 +283,8 @@ public class CWordFragment extends Fragment {
         }
         wordScore.setText(score1+"/10");
         wordScore2.setText(score2+"/20");
-        new LogUtility().writeLog("End CWord Game with score1 : "+score1+" score2: "+score2,getContext());
+        new LogUtility().writeLog("Doing Test2 at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+        new LogUtility().writeLog("End Test2 with score1 : "+score1+" score2: "+score2,getContext());
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
         btnSpeaker1.setVisibility(View.INVISIBLE);

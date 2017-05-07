@@ -17,8 +17,10 @@ import com.example.rinnv.esd_g03.Ultility.Config;
 import com.example.rinnv.esd_g03.Ultility.LogUtility;
 import com.example.rinnv.esd_g03.Ultility.SQLiteDataController;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -231,8 +233,8 @@ public class WordFragment extends Fragment {
                 score++;
         }
         wordTextTV.setText(score+"/10");
-        new LogUtility().writeLog("End Word Game with score1 : "+score,getContext());
-
+        new LogUtility().writeLog("Doing Test1 at: "+ DateFormat.getDateTimeInstance().format(new Date()).toString(),getContext());
+        new LogUtility().writeLog("End Test1 with score : "+score,getContext());
         wordTextTV.setTextSize(60);
         btnNextWord.setVisibility(View.INVISIBLE);
         btnPreWord.setVisibility(View.INVISIBLE);
