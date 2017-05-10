@@ -88,12 +88,20 @@ public class TabActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SPEECH_RECOGNITION_CODE && resultCode == RESULT_OK) {
 
-            final ArrayList<String> matches_text = data
-                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            final ArrayList<String> matches_text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if(type==1)
             {
                 if (matches_text.size() > 0) {
                     String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
+                    if(matches_text2.length==1)
+                    {
+                        matches_text2[1]="";
+                        matches_text2[2]="";
+                    }
+                    if(matches_text2.length==2)
+                    {
+                        matches_text2[2]="";
+                    }
                     // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
                     if (matches_text2[0].toLowerCase().equals(your_word.toLowerCase()) ||
                             matches_text2[1].toLowerCase().equals(your_word.toLowerCase())||
@@ -119,6 +127,15 @@ public class TabActivity extends AppCompatActivity {
             {
                 if (matches_text.size() > 0) {
                     String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
+                    if(matches_text2.length==1)
+                    {
+                        matches_text2[1]="";
+                        matches_text2[2]="";
+                    }
+                    if(matches_text2.length==2)
+                    {
+                        matches_text2[2]="";
+                    }
                     // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
                     if (matches_text2[0].toLowerCase().equals(your_word.toLowerCase()) ||
                             matches_text2[1].toLowerCase().equals(your_word.toLowerCase())
