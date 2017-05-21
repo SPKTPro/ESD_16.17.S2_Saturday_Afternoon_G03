@@ -93,19 +93,17 @@ public class TabActivity extends AppCompatActivity {
             {
                 if (matches_text.size() > 0) {
                     String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
-                    if(matches_text2.length==1)
-                    {
-                        matches_text2[1]="";
-                        matches_text2[2]="";
-                    }
-                    if(matches_text2.length==2)
-                    {
-                        matches_text2[2]="";
-                    }
+
+                    if(matches_text2.length<3)
+                        for(int i= matches_text2.length;i<3;i++)
+                        {
+                            matches_text2[i]="";
+                        }
                     // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
                     if (matches_text2[0].toLowerCase().equals(your_word.toLowerCase()) ||
                             matches_text2[1].toLowerCase().equals(your_word.toLowerCase())||
-                            matches_text2[2].toLowerCase().equals(your_word.toLowerCase())) {
+                            matches_text2[2].toLowerCase().equals(your_word.toLowerCase())
+                            ) {
                         // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
                        // Toast.makeText(this, "dung"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
                         WordFragment.Question q = new WordFragment.Question();
@@ -127,19 +125,16 @@ public class TabActivity extends AppCompatActivity {
             {
                 if (matches_text.size() > 0) {
                     String[] matches_text2 = matches_text.toArray(new String[matches_text.size()]);
-                    if(matches_text2.length==1)
-                    {
-                        matches_text2[1]="";
-                        matches_text2[2]="";
-                    }
-                    if(matches_text2.length==2)
-                    {
-                        matches_text2[2]="";
-                    }
+
+                    if(matches_text2.length<3)
+                        for(int i= matches_text2.length;i<3;i++)
+                        {
+                            matches_text2[i]="";
+                        }
                     // chua bat truong hop matches_text2 khong có hoac chi co 1 2 từ
                     if (matches_text2[0].toLowerCase().equals(your_word.toLowerCase()) ||
-                            matches_text2[1].toLowerCase().equals(your_word.toLowerCase())
-                            ||matches_text2[2].toLowerCase().equals(your_word.toLowerCase())) {
+                            matches_text2[1].toLowerCase().equals(your_word.toLowerCase())||
+                            matches_text2[2].toLowerCase().equals(your_word.toLowerCase())) {
                         // Toast.makeText(this,"dung"+" "+your_word.toLowerCase()+" "+matches_text2[0]+" "+matches_text2[1]+" "+matches_text2[2], Toast.LENGTH_SHORT).show();
                    //     Toast.makeText(this, "dung"+" "+matches_text2[0].toLowerCase()+" "+matches_text2[1].toLowerCase(), Toast.LENGTH_SHORT).show();
                         if(type2==1)

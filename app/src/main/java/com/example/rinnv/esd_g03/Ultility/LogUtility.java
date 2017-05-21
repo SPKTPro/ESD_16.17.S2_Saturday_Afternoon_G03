@@ -20,7 +20,7 @@ public class LogUtility {
             final File path =
                     Environment.getExternalStoragePublicDirectory
                             (
-                                    Environment.DIRECTORY_DCIM + "/YourFolder/"
+                                    Environment.DIRECTORY_DOWNLOADS + "/YourFolder/"
                             );
             if (!path.exists()) {
                 path.mkdirs();
